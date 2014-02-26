@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Node.js Dependencies for yo" level="project" />
+    <orderEntry type="library" name="chai-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="backbone-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="underscore-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="chai-jquery-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="sinon-chai-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jQuery-2.0.0" level="application" />
+    <orderEntry type="library" name="requirejs-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="handlebars-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="gruntjs-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="sass-stdlib" level="application" />
+  </component>
+</module>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{Node.js Dependencies for yo}" />
+    <file url="PROJECT" libraries="{Node.js Dependencies for yo, backbone-DefinitelyTyped, chai-DefinitelyTyped, chai-jquery-DefinitelyTyped, gruntjs-DefinitelyTyped, handlebars-DefinitelyTyped, jQuery-2.0.0, mocha-DefinitelyTyped, requirejs-DefinitelyTyped, sinon-chai-DefinitelyTyped, underscore-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="Node.js Globals" />
+  </component>
+</project>
+
