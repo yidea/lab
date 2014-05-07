@@ -149,14 +149,14 @@ flightEmitter.on("arrival", function (data) { //listner
 var express = require("express"),
   exphbs = require("express3-handlebars"),
   path = require("path"),
-  open = require("open"),
+//  open = require("open"),
   routes = require("./routes"),
   app = express();
 
 // express3-handlebars Advance usage
 // https://github.com/ericf/express3-handlebars/blob/master/examples/advanced/app.js
 // create ExpressHandlebars instance, setup layout & helper
-hbs = exphbs.create({
+var hbs = exphbs.create({
   defaultLayout: "main",
   partialDir: ["views/partials"]
 });
