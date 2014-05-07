@@ -1,9 +1,9 @@
 var _ = require("underscore"),
-  mongoose = require("../mongoose"),
   request = require("request"),
   $ = require("cheerio"),
-  moment = require("moment-timezone"),
-  PresoSchema = mongoose.presoSchema;
+  moment = require("moment-timezone");
+//  mongoose = require("../mongoose"),
+//  PresoSchema = mongoose.presoSchema;
 
 exports.index = function (req, res) {
   res.render("home", { // view partial hbs
@@ -111,38 +111,38 @@ exports.getJSON = function (req, res) {
  * @ Mongoose for MongoDB access
  * ----------------------------------
  */
-exports.writeToMongolab = function (req, res) {
-  var record = new PresoSchema({
-    uid: +new Date(),
-    name: "test",
-    number: 12
-  });
-  //save
-  record.save(function (err) {
-    if (err) {
-      failure(err);
-    } else {
-      res.json({status: "success"});
-    }
-  });
-};
+//exports.writeToMongolab = function (req, res) {
+//  var record = new PresoSchema({
+//    uid: +new Date(),
+//    name: "test",
+//    number: 12
+//  });
+//  //save
+//  record.save(function (err) {
+//    if (err) {
+//      failure(err);
+//    } else {
+//      res.json({status: "success"});
+//    }
+//  });
+//};
 
-exports.readMongolab = function (req, res) {
-  // find model all data and set sort criteria, read + callback
-  PresoSchema
-    .find()
-    .setOptions({sort: "uid"})
-    .exec(function (err, data) {
-      if (err) {
-        failure(err);
-      } else {
-        res.render("home", {
-          title: "readMongolab",
-          data: data
-        });
-      }
-    });
-};
+//exports.readMongolab = function (req, res) {
+//  // find model all data and set sort criteria, read + callback
+//  PresoSchema
+//    .find()
+//    .setOptions({sort: "uid"})
+//    .exec(function (err, data) {
+//      if (err) {
+//        failure(err);
+//      } else {
+//        res.render("home", {
+//          title: "readMongolab",
+//          data: data
+//        });
+//      }
+//    });
+//};
 
 // helper
 function failure(err) {
