@@ -1,0 +1,516 @@
+/* normalize.css v3.0.0 | MIT License | git.io/normalize */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a {
+  background: transparent;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0;
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul,
+ol {
+  margin: 0;
+}
+input {
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+.list-unstyled,
+.list-nav {
+  padding-left: 0;
+  list-style: none;
+}
+.list-nav {
+  zoom: 1;
+}
+.list-nav:before,
+.list-nav:after {
+  content: "";
+  display: table;
+}
+.list-nav:after {
+  clear: both;
+}
+.list-nav > li {
+  float: left;
+}
+.hidden {
+  display: none;
+}
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.row {
+  margin-left: 0;
+}
+h2 {
+  font-size: 16px;
+}
+.list-nav > li {
+  padding-right: 10px;
+}
+/*
+ * @ CSS Transition
+ * ----------------------------------
+ * - transition: [<transition-property> <transition-duration> <transition-timing-function> <transition-delay>]
+ * - { transition: all 1s ease-in-out; }
+ * - IE10+, need vendor prefix
+ * - Hardware acceleration-CSS3 Transitions are directly handled on the GPU
+ * - detect js transitionend
+ */
+/*
+Todo:
+http://codepen.io/Zeaklous/pen/kyGqm
+http://zurb.com/playground/sliding-vinyl
+http://zurb.com/playground/drop-in-modals
+*/
+.transition-background-color {
+  -webkit-transition: background-color 1s ease-in;
+  -moz-transition: background-color 1s ease-in;
+  -o-transition: background-color 1s ease-in;
+  -ms-transition: background-color 1s ease-in;
+  transition: background-color 1s ease-in;
+  width: 200px;
+  background-color: #ccc;
+}
+.transition-background-color:hover {
+  background-color: #fff;
+}
+/*
+ * @ CSS Animation
+ * ----------------------------------
+ * -
+ * - http://daneden.github.io/animate.css/
+ http://davidwalsh.name/demo/css-flip.php
+ http://desandro.github.io/3dtransforms/docs/card-flip.html
+ * http://davidwalsh.name/photo-stack
+ http://davidwalsh.name/css-kwicks
+ * http://develop-a-website.com/simple-css3-animation-tutorials/
+ * http://www.sitepoint.com/build-awesome-apps-with-css3-animations/
+ * http://blogs.msdn.com/b/davrous/archive/2011/12/06/introduction-to-css3-animations.aspx
+ * http://css-tricks.com/css-animation-tricks/
+ */
+/*
+ * @ CSS Transform 2D/3D
+ * ----------------------------------
+ * - transform: transform-function[ none|rotate|scale|skew|translate|perspective|matrix] || none
+ * - the actual space on the page that the element occupies remains the same as before transition
+ * - IE10+
+ http://desandro.github.io/3dtransforms/examples/perspective-03.html
+ http://davidwalsh.name/css-flip
+ http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/
+ */
+.transform2d {
+  position: relative;
+}
+.transform2d .back,
+.transform2d .front {
+  width: 71px;
+  height: 100px;
+  border: 1px solid #ccc;
+  background: url("../images/cardKingClub.png") 0 0 no-repeat;
+  -webkit-background-size: 71px 100px;
+  -moz-background-size: 71px 100px;
+  background-size: 71px 100px;
+}
+.transform2d .back {
+  opacity: 0.3;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+}
+.transform2d .front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  -ms-transition: 0.6s;
+  transition: 0.6s;
+}
+.transform-rotate .front {
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  -o-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  transform: rotate(5deg);
+  -webkit-transform-origin: 90% 90%;
+  -moz-transform-origin: 90% 90%;
+  -o-transform-origin: 90% 90%;
+  -ms-transform-origin: 90% 90%;
+  transform-origin: 90% 90%;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.transform-rotate .front:hover {
+  -webkit-transform: rotate(15deg);
+  -moz-transform: rotate(15deg);
+  -o-transform: rotate(15deg);
+  -ms-transform: rotate(15deg);
+  transform: rotate(15deg);
+}
+.transform-skew .front {
+  -webkit-transform: skewY(5deg);
+  -moz-transform: skewY(5deg);
+  -o-transform: skewY(5deg);
+  -ms-transform: skewY(5deg);
+  transform: skewY(5deg);
+}
+.transform-skew .front:hover {
+  -webkit-transform: skewY(-15deg);
+  -moz-transform: skewY(-15deg);
+  -o-transform: skewY(-15deg);
+  -ms-transform: skewY(-15deg);
+  transform: skewY(-15deg);
+}
+.transform-scale .front {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.transform-scale .front:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+.transform-translate .front {
+  -webkit-transform: translate(5px, 5px);
+  -moz-transform: translate(5px, 5px);
+  -o-transform: translate(5px, 5px);
+  -ms-transform: translate(5px, 5px);
+  transform: translate(5px, 5px);
+}
+.transform-translate .front:hover {
+  -webkit-transform: translate(120px, 5px);
+  -moz-transform: translate(120px, 5px);
+  -o-transform: translate(120px, 5px);
+  -ms-transform: translate(120px, 5px);
+  transform: translate(120px, 5px);
+}
+.transform-perspective .front {
+  -webkit-transform: perspective(500px) rotateY(-35deg);
+  -moz-transform: perspective(500px) rotateY(-35deg);
+  -o-transform: perspective(500px) rotateY(-35deg);
+  -ms-transform: perspective(500px) rotateY(-35deg);
+  transform: perspective(500px) rotateY(-35deg);
+  -webkit-transform-origin: 0;
+  -moz-transform-origin: 0;
+  -o-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+}
+.transform-perspective .front:hover {
+  -webkit-transform: perspective(500px) rotateY(0);
+  -moz-transform: perspective(500px) rotateY(0);
+  -o-transform: perspective(500px) rotateY(0);
+  -ms-transform: perspective(500px) rotateY(0);
+  transform: perspective(500px) rotateY(0);
+}
+.cube {
+  margin: 30px;
+  width: 150px;
+  height: 150px;
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+  -ms-perspective: 600px;
+  perspective: 600px;
+}
+.cube-inner {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+/*transition: transform 0.6s;*/
+  -webkit-transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -ms-transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.cube-face {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 150px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  color: #ccc;
+  font-size: 100px;
+  font-weight: 800;
+  background: #f9f9f9;
+}
+.cube-face-front {
+  -webkit-transform: translate3d(0, 0, 75px);
+  -moz-transform: translate3d(0, 0, 75px);
+  -o-transform: translate3d(0, 0, 75px);
+  -ms-transform: translate3d(0, 0, 75px);
+  transform: translate3d(0, 0, 75px);
+/*transform: rotateY(40deg);*/
+}
+.cube-face-back {
+  -webkit-transform: rotateY(180deg) translate3d(0, 0, 75px);
+  -moz-transform: rotateY(180deg) translate3d(0, 0, 75px);
+  -o-transform: rotateY(180deg) translate3d(0, 0, 75px);
+  -ms-transform: rotateY(180deg) translate3d(0, 0, 75px);
+  transform: rotateY(180deg) translate3d(0, 0, 75px);
+}
+.cube-face-left {
+  -webkit-transform: rotateY(-90deg) translate3d(0, 0, 75px);
+  -moz-transform: rotateY(-90deg) translate3d(0, 0, 75px);
+  -o-transform: rotateY(-90deg) translate3d(0, 0, 75px);
+  -ms-transform: rotateY(-90deg) translate3d(0, 0, 75px);
+  transform: rotateY(-90deg) translate3d(0, 0, 75px);
+}
+.cube-face-right {
+  -webkit-transform: rotateY(90deg) translate3d(0, 0, 75px);
+  -moz-transform: rotateY(90deg) translate3d(0, 0, 75px);
+  -o-transform: rotateY(90deg) translate3d(0, 0, 75px);
+  -ms-transform: rotateY(90deg) translate3d(0, 0, 75px);
+  transform: rotateY(90deg) translate3d(0, 0, 75px);
+}
+.cube-face-top {
+  -webkit-transform: rotateX(90deg) translate3d(0, 0, 75px);
+  -moz-transform: rotateX(90deg) translate3d(0, 0, 75px);
+  -o-transform: rotateX(90deg) translate3d(0, 0, 75px);
+  -ms-transform: rotateX(90deg) translate3d(0, 0, 75px);
+  transform: rotateX(90deg) translate3d(0, 0, 75px);
+}
+.cube-face-bottom {
+  -webkit-transform: rotateX(-90deg) translate3d(0, 0, 75px);
+  -moz-transform: rotateX(-90deg) translate3d(0, 0, 75px);
+  -o-transform: rotateX(-90deg) translate3d(0, 0, 75px);
+  -ms-transform: rotateX(-90deg) translate3d(0, 0, 75px);
+  transform: rotateX(-90deg) translate3d(0, 0, 75px);
+}
+.cube-control-back:checked ~ .cube .cube-inner {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.cube-control-left:checked ~ .cube .cube-inner {
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  -o-transform: rotateY(90deg);
+  -ms-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+}
+.cube-control-right:checked ~ .cube .cube-inner {
+  -webkit-transform: rotateY(-90deg);
+  -moz-transform: rotateY(-90deg);
+  -o-transform: rotateY(-90deg);
+  -ms-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
+}
+.cube-control-top:checked ~ .cube .cube-inner {
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  -o-transform: rotateX(-90deg);
+  -ms-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+.cube-control-bottom:checked ~ .cube .cube-inner {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  -o-transform: rotateX(90deg);
+  -ms-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}

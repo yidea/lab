@@ -1,0 +1,20 @@
+<h4>{{title}}</h4>
+<a href="http://www.zhiboxia.com/">Zhiboxia.com</a>
+<div>
+  <p>Today: {{currentTime}}</p>
+  <table class="table table-bordered table-zhibo">
+    <tbody>
+      {{#if result}}
+        {{#each result}}
+          <tr>
+            <td>{{matchDate}}</td>
+            <td>{{matchCSTtime}}</td>
+            <td>{{matchPDTtime}}</td>
+            <td><strong>{{matchName}}</strong></td>
+            <td>{{{links}}}</td>
+          </tr>
+        {{/each}}
+      {{/if}}
+    </tbody>
+  </table>
+</div>

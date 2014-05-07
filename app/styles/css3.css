@@ -1,0 +1,450 @@
+/* normalize.css v3.0.0 | MIT License | git.io/normalize */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a {
+  background: transparent;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0;
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul,
+ol {
+  margin: 0;
+}
+input {
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+.list-unstyled,
+.list-nav {
+  padding-left: 0;
+  list-style: none;
+}
+.list-nav {
+  zoom: 1;
+}
+.list-nav:before,
+.list-nav:after {
+  content: "";
+  display: table;
+}
+.list-nav:after {
+  clear: both;
+}
+.list-nav > li {
+  float: left;
+}
+.hidden {
+  display: none;
+}
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+/*
+ * @ CSS Code Style
+ * ----------------------------------
+ * -CSS Code Style guide:
+  http://mdo.github.io/code-guide/
+  https://github.com/necolas/idiomatic-css
+  https://github.com/styleguide/css
+ */
+/* @ CSS ORG
+* -------------
+# OOCSS
+http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
+- class based, low nesting (<3)
+# How to org css in large project like modules(e.g. Bootstrap)
+https://github.com/twbs/bootstrap/tree/master/less
+# CSS code style
+position + box model(MBPW) + visual
+* */
+/* @ CSS-Preprocessor
+* -------------
+- http://webdesign.tutsplus.com/articles/why-i-choose-stylus-and-you-should-too--webdesign-18412
+- reusable, configable, programmable css (grid system, vendor fix, media query)
+# Sass + Compass
+Good: popular community, more dev tool support
+Bad: ruby gem, not close to native css, need @include mixin().e.g  @include display-box;
+@mixin border-radius($n) {}
+Cheatsheet: http://www.jc-designs.net/pdf/sassCheat.pdf
+
+# Stylus + Nib
+Good: nodejs based, native css extend e.g. border-radius:0; will autogen vendor prefix, & to reference context, @height
+Bad: lack css sprite tool, lack support in dev tool, lower usage
+border-radius(){}
+*/
+/* @ Normalize.css vs. Reset.css
+* -------------
+https://github.com/necolas/normalize.css/blob/master/normalize.css
+Normalize keep things original as browser default stylesheet, e.g. no override/clear on ul, input border
+* */
+/* @ Box model
+* -------------
+* MBPWH
+* CSS specificity
+* */
+/* @ Box-sizing
+* -------------
+http://css-tricks.com/box-sizing/
+- IE 8+
+- border-box: contentWidth = width-padding-border (margin is excluded)
+- content-box
+*/
+* {
+  -webkit-box-sizing: border-box;
+/* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+/* Firefox, other Gecko */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+/* Opera/IE 8+ */
+}
+/* @ Position property
+* -------------
+1 static
+2 relative
+3 absolute
+*/
+/* @ Display: inline vs. inline-block vs. block
+* -------------
+CodePen: http://codepen.io/yidea/pen/BAaoK
+
+1 none
+- hide element, e.g <title>,<script>, without layout&rendering html. visibility: hiden will still layout/take the space
+
+2 block
+<div>
+3 inline-block
+4 inline
+<span>, <input>, <img>
+5 table-cell
+6 flex
+7+. grid, list-item, table
+*/
+/* @ Float & Clearfix
+* -------------
+Float vs. inline-block+vertical-algin:top for horizontal navigation layout
+*/
+/* @ IE hack & haslayout
+* -------------
+zoom: 1 trigger haslayout
+*, _ if
+
+- IE 7 scaling image improvement
+img { -ms-interpolation-mode: bicubic; }
+
+http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+* */
+.test {
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-right: -10px;
+}
+/* @ Stacking order & Z-index
+-----------------------------
+http://timkadlec.com/2008/01/detailed-look-at-stacking-in-css/
+set z-index=0 will establish a new stacking context layer 0 for the item and its inside the element
+
+# Stacking order rules (0 is on top)
+
+0 Positioned elements with z-index of greater than 0, first in order of z-index from lowest to highest, then in order of appearance in source code
+1 Positioned elements without z-index specified, in order of appearance in source code
+2 Inline elements
+3 Floating elements which is Non-positioned, in order of appearance in source code
+4 All non-positioned, non-floating, block elements in order of source code (last in on top)
+5 Root element(body) backgrounds and borders
+*/
+/*
+ * @ Pseudo-classes
+ * ----------------------------------
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+ * - li:nth-child(n) //ie9+
+ http://css-tricks.com/useful-nth-child-recipies/
+ */
+/* @ Media Query & Resposive design
+-----------------------------------
+*/
+@media screen and (max-width: 800px) {
+  .navigation {
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -o-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+/* @ Accessiblily & WAI ARIA
+-----------------------------------
+http://dev.opera.com/articles/view/introduction-to-wai-aria/
+*/
+/* ==========================================================================
+   CSS Layout
+   ========================================================================== */
+/*
+ * @ Center content vertically and horizontally
+ * ----------------------------------
+ * - Codepen: http://codepen.io/yidea/pen/dyFml/
+ * - Methods: position absolute(know child width/height), table-cell+vertical-align:middle; Ghost element method(inline-block+vertical-algin); flexbox; css-translate
+ */
+/*
+ * @ Column
+ * ----------------------------------
+ * - float: left + parent width
+ * - inline-block + parent width
+ * - position: absolute + left
+ * - display: table; display: table-cell
+ */
+/*
+ * @ Holy Grail layout
+ * ----------------------------------
+ * - Codepen: http://codepen.io/yidea/pen/JhEbB
+ * - Method: float; flexbox
+ */
+/*
+ * @ Input/button layout
+ * ----------------------------------
+ * - search bar, dropdown 2/3 column layout
+ */
+/*
+ * @ Tile layout
+ * ----------------------------------
+ * - photos, products
+ */
+/* @ Flexbox
+-----------------------------
+http://weblog.bocoup.com/dive-into-flexbox/
+http://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- A new box model (flexible box layout)- for easier different device UI layout (3+ column, center vertically/horizontally). A flex container expands items to fill available free space, or shrinks them to prevent overflow.
+- IE 10+
+- Playground: http://the-echoplex.net/flexyboxes/
+- Codepen: http://codepen.io/yidea/pen/Chgju
+*/
+/*
+ * @ vertical-align
+ * ----------------------------------
+ http://phrogz.net/CSS/vertical-align/
+ * - when display: table-cell; (IE7+) vertical-align will work as expected on top/middle/bottom
+ * - when display: inline/inline-block; vertical-align work based on the previous inline element position (e.g. Ghost align method)
+ */
+/*
+ * @ Overflow & text-overflow: ellipsis/clip
+ * ----------------------------------
+ * - Codepen: http://codepen.io/yidea/pen/yhCvm/?editors=110
+ */
+/*
+ * @ :before, :after
+ * ----------------------------------
+ http://css-tricks.com/pseudo-element-roundup/
+ * - UI aiding, clearfix, center algin ghost method
+ */
+/* ==========================================================================
+   Responsive Design & Media Query
+   ========================================================================== */
+/*
+ * @ Responsive Image
+ * ----------------------------------
+ * http://nicolasgallagher.com/flexible-css-cover-images/
+ * - prevent zoom on mobile device
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+ */
+img {
+  max-width: 100%;
+}
+/* ipad */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  img {
+    max-width: 100%;
+  }
+}
+/*
+ * @ Fluid & Liquid Layout
+ * ----------------------------------
+ * - use %, em e.g. 62.5% trick
+ */

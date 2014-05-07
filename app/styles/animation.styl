@@ -1,0 +1,206 @@
+@import "base";
+
+.row {
+  margin-left: 0;
+}
+h2 {font-size: 16px;}
+.list-nav {
+  > li {
+    padding-right: 10px;
+  }
+}
+
+/*
+ * @ CSS Transition
+ * ----------------------------------
+ * - transition: [<transition-property> <transition-duration> <transition-timing-function> <transition-delay>]
+ * - { transition: all 1s ease-in-out; }
+ * - IE10+, need vendor prefix
+ * - Hardware acceleration-CSS3 Transitions are directly handled on the GPU
+ * - detect js transitionend
+ */
+
+/*
+Todo:
+http://codepen.io/Zeaklous/pen/kyGqm
+http://zurb.com/playground/sliding-vinyl
+http://zurb.com/playground/drop-in-modals
+*/
+.transition-background-color {
+  transition: background-color 1s ease-in;
+  width: 200px;
+  background-color: #ccc;
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+/*
+ * @ CSS Animation
+ * ----------------------------------
+ * -
+ * - http://daneden.github.io/animate.css/
+ http://davidwalsh.name/demo/css-flip.php
+ http://desandro.github.io/3dtransforms/docs/card-flip.html
+ * http://davidwalsh.name/photo-stack
+ http://davidwalsh.name/css-kwicks
+ * http://develop-a-website.com/simple-css3-animation-tutorials/
+ * http://www.sitepoint.com/build-awesome-apps-with-css3-animations/
+ * http://blogs.msdn.com/b/davrous/archive/2011/12/06/introduction-to-css3-animations.aspx
+ * http://css-tricks.com/css-animation-tricks/
+ */
+
+
+/*
+ * @ CSS Transform 2D/3D
+ * ----------------------------------
+ * - transform: transform-function[ none|rotate|scale|skew|translate|perspective|matrix] || none
+ * - the actual space on the page that the element occupies remains the same as before transition
+ * - IE10+
+ http://desandro.github.io/3dtransforms/examples/perspective-03.html
+ http://davidwalsh.name/css-flip
+ http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/
+ */
+$card-width = 71px;
+$card-height = 100px;
+
+.transform2d {
+  position: relative;
+
+  .back,
+  .front {
+    width: $card-width;
+    height: $card-height;
+    border: 1px solid #ccc;
+
+    background: url(../images/cardKingClub.png) 0 0 no-repeat;
+    background-size: $card-width $card-height; // IE9+
+    //background: url(http://ecx.images-amazon.com/images/I/511QTZ-VXJL._SX60_CR,0,0,60,60_.jpg) 0 0 no-repeat;
+  }
+
+  .back {
+    opacity: 0.3;
+  }
+
+  .front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.6s;
+  }
+}
+
+.transform-rotate .front{
+  transform: rotate(5deg);
+  transform-origin: 90% 90%; //set a point of origin for transform start
+  //default visible, hidden will hide element when not facing the screen. IE10+
+  backface-visibility: hidden;
+
+  &:hover {
+    transform: rotate(15deg);
+  }
+}
+
+.transform-skew .front{
+  transform: skewY(5deg);
+  &:hover {
+    transform: skewY(-15deg);
+  }
+}
+
+.transform-scale .front{
+  transform: scale(0.9);
+  &:hover {
+    transform: scale(1.5);
+  }
+}
+
+.transform-translate .front{
+  transform: translate(5px, 5px); //translateX(), translate3d()
+  &:hover {
+    transform: translate(120px, 5px);
+  }
+}
+
+// To activate 3D effect, make element perspective w transform: perspective(600px); or perspective: 600px; (apply to parent)
+//http://www.amazon.com/gp/product/099134460X/ref=s9_simh_gw_p14_d0_i2?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1VB4QAQJ3V67PJQPGBJ8&pf_rd_t=101&pf_rd_p=1688200382&pf_rd_i=507846
+.transform-perspective .front{
+  transform:perspective(500px) rotateY(-35deg);
+  transform-origin: 0;
+  &:hover {
+    transform:perspective(500px) rotateY(0);
+  }
+}
+
+// 3D cube
+$cube-width = 150px;
+// outer wrapper serves as camera w perspective - define the depth of Z axis, enable 3D
+.cube {
+  margin: 30px;
+  width: $cube-width;
+  height: @width;
+
+  perspective: 600px; //use outer to keep 3D perspective- distance to Z axis
+}
+// inner wrapper
+.cube-inner {
+  // control rotate of the 3d cube in the inner
+  position: relative;
+
+  width: inherit;
+  height: inherit;
+
+  transform-style: preserve-3d; //3d rendering context, remain in 3D space
+  /*transition: transform 0.6s;*/
+  transition: all 0.85s cubic-bezier(0.175,0.885,0.320,1.275);
+}
+.cube-face {
+  position: absolute;
+
+  width: inherit;
+  height: inherit;
+  border: 1px solid #ccc;
+
+  text-align: center;
+  line-height: $cube-width;
+  opacity: 0.5;
+  color: #ccc;
+  font-size: 100px;
+  font-weight: 800;
+  background: #f9f9f9;
+}
+.cube-face-front {
+  transform: translate3d(0, 0, $cube-width/2);
+  /*transform: rotateY(40deg);*/
+}
+.cube-face-back {
+  transform: rotateY(180deg) translate3d(0, 0, $cube-width/2);
+}
+.cube-face-left {
+  transform: rotateY(-90deg) translate3d(0, 0, $cube-width/2);
+}
+.cube-face-right {
+  transform: rotateY(90deg) translate3d(0, 0, $cube-width/2);
+}
+.cube-face-top {
+  transform: rotateX(90deg) translate3d(0, 0, $cube-width/2);
+}
+.cube-face-bottom {
+  transform: rotateX(-90deg) translate3d(0, 0, $cube-width/2);
+}
+//radio hack for control
+.cube-control-back:checked ~ .cube .cube-inner {
+  transform: rotateY(180deg);
+}
+.cube-control-left:checked ~ .cube .cube-inner {
+  transform: rotateY(90deg);
+}
+.cube-control-right:checked ~ .cube .cube-inner {
+  transform: rotateY(-90deg);
+}
+.cube-control-top:checked ~ .cube .cube-inner {
+  transform: rotateX(-90deg);
+}
+.cube-control-bottom:checked ~ .cube .cube-inner {
+  transform: rotateX(90deg);
+}

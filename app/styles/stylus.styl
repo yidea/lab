@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Stylus
+   ========================================================================== */
+$yellow = #ffc120;
+$yellow-hover = $ccc;
+$btn-width = 100px;
+
+// function
+// override css display:inline-block
+// Adds fallback styles for display: inline-block for IE7
+display() {
+  display: arguments;
+
+  if (arguments == inline-block) {
+    zoom: 1;
+    *display: inline;
+  }
+}
+
+clearfix() {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+flyout-direction($direction) {
+  if ($direction == right) {
+    $width = 100px;
+    margin-{$direction}: $width;
+  }
+}
+
+// extend class
+$btn-link {
+  clearfix();
+
+  width: $btn-width;
+  height: @width;
+
+  line-height: -(@height / 2) -1; // need () for +-*/
+  background: lighten($yellow, 85%);
+  color: darken($yellow-hover, 10%);
+
+  &,
+  &:hover,
+  &:visited {
+    background: none;
+  }
+}
+// extend
+.btn-blue {
+  @extend $btn-link;
+
+  .container & {
+    //& refer to .btn-blue itself
+  }
+}
+
+// for loop
+for $direction in (top right bottom left) {
+  .flyout-{$direction} {
+    flyout-direction($direction);
+  }
+}
+
+$img-widths = 30, 45, 50, 60, 100, 125, 150, 180, 300, 450, 2000;
+
+for $width in $img-widths {
+  .img-{$width} {
+    width: unit($width, "px");
+    height: @width;
+  }
+}
+
+columns = 12;
+for $i in (1..columns) { //loop from 1-12
+  > .col{$i} {
+    //column-padded($i);
+  }
+}
+$merchant-module-columns = 15
+//1..15
+for i in (1..$merchant-module-columns){
+  $index = i;
+  .merchant-module-{i} {
+    float: left;
+    width: (100% * $index / 15)
+  }
+}
+
+//tricks
+.box {
+  height:calc(100% - 55px); //css3 native calc
+}

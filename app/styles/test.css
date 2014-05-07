@@ -1,0 +1,22 @@
+/* Buttons
+
+Buttons can and should be clicked.
+
+Markup: <button class="button {$modifiers}">
+
+:hover - Highlight the button when hovered.
+.vip - Displays a very important button
+
+Styleguide 1.1
+*/
+.button {
+  background-color: #00f;
+  text-decoration: none;
+  font-size: 20px;
+}
+.button:hover {
+  background-color: #33f;
+}
+.button.vip {
+  font-size: 40px;
+}

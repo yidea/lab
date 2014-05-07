@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Animation-css</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="styles/animation.css">
+  <script src="bower_components/modernizr/modernizr.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h2>CSS Transition</h2>
+      <div id="csstransition">
+        <div class="transition-background-color">
+          transition (background-color)
+        </div>
+      </div>
+
+      <h2>CSS 2D Transform (IE9+)</h2>
+      <div id="csstransform">
+        <ul class="list-nav">
+          <li>
+            <h5>transform: rotate(15deg)</h5>
+            <div class="transform2d transform-rotate">
+              <div class="back"></div><div class="front"></div>
+            </div>
+          </li>
+          <li>
+            <h5>transform: skewY(5deg)</h5>
+            <div class="transform2d transform-skew">
+              <div class="back"></div><div class="front"></div>
+            </div>
+          </li>
+          <li>
+            <h5>transform: scale(1.5)</h5>
+            <div class="transform2d transform-scale">
+              <div class="back"></div><div class="front"></div>
+            </div>
+          </li>
+          <li>
+            <h5>transform: translate(10px, 0)</h5>
+            <div class="transform2d transform-translate">
+              <div class="back"></div><div class="front"></div>
+            </div>
+          </li>
+          <li>
+            <h5>Open Book w transform: perspective(40px)</h5>
+            <div class="transform2d transform-perspective">
+              <div class="back"></div><div class="front"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>CSS 3D Transform(IE10+)</h2>
+    <ul class="list-nav">
+      <li>
+        <h5>3D cube (rotate w arrow key)</h5>
+        <input class="cube-control cube-control-front" type="radio" name="radioBtn"/>
+        <input class="cube-control cube-control-back" type="radio" name="radioBtn"/>
+        <input class="cube-control cube-control-left" type="radio" name="radioBtn"/>
+        <input class="cube-control cube-control-right" type="radio" name="radioBtn"/>
+        <input class="cube-control cube-control-top" type="radio" name="radioBtn"/>
+        <input class="cube-control cube-control-bottom" type="radio" name="radioBtn"/>
+        <div class="transform3d cube">
+          <div class="cube-inner">
+            <div class="cube-face cube-face-front">1</div>
+            <div class="cube-face cube-face-back">2</div>
+            <div class="cube-face cube-face-left">3</div>
+            <div class="cube-face cube-face-right">4</div>
+            <div class="cube-face cube-face-top">5</div>
+            <div class="cube-face cube-face-bottom">6</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+  <script>
+    // 3D cube arraw key event
+    var xDeg = 0, yDeg = 0;
+    document.addEventListener("keydown", function (ev) {
+      ev.preventDefault();
+      switch(ev.keyCode) {
+        case 37: //left
+          yDeg -= 90;
+          break;
+        case 38: //up
+          xDeg +=90;
+          break;
+        case 39: //right
+          yDeg +=90;
+          break;
+        case 40: //down
+          xDeg -=90;
+          break;
+      }
+
+      document.querySelector(".cube-inner").style.webkitTransform = "rotateX(" + xDeg+ "deg) rotateY(" + yDeg + "deg)";
+
+    }, false);
+
+
+  </script>
+</body>
+</html>

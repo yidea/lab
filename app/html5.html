@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/css3.css">
+  <!-- endbuild -->
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+  <!--[if lt IE 10]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div id="zone1">
+
+          <!-- @ BP
+
+          https://github.com/h5bp/html5-boilerplate
+          html5 layout
+          -->
+          <div class="main">
+            <section class="main-content" role="main">
+              <h2>main</h2>
+            </section>
+            <nav class="main-nav" role='navigation'>
+              <h2>nav</h2>
+              <ul class="list-unstyled">
+                <li>nav1</li>
+              </ul>
+            </nav>
+            <aside class="main-sidebar" role="complementary">
+              <h2>sidebar</h2>
+            </aside>
+          </div>
+
+          <!-- @ <a> link
+          http://css-tricks.com/when-and-when-not-to-use-an-anchor-tag/
+          - use <a> if going to use href for link, so the cursor:pointer style is default and can define :hover,:active,:focus status
+          - dont use <a> if just need a clickable button/expand toggle, use span or button or add accesiability to <a> with role=button
+           <a role="button" tabindex="0">button</a>
+          -->
+
+          <!-- @ Accessibility
+          http://negativitysandwiches.com/accessibility-and-building-a-web-for-everyone-because-sometimes-its-not-all-about-us/
+          -->
+
+          <!-- @ tabindex
+
+          http://snook.ca/archives/accessibility_and_usability/elements_focusable_with_tabindex
+          http://nemisj.com/focusable/
+          http://www.w3.org/html/wg/drafts/html/master/editing.html#the-tabindex-attribute
+          - 1 it set keyboard tab order of element by order 1,2,3 (TAB to move focus on elements in what order, start with 1)
+          - 2 it add focus behavior to element :focus,.focus() take effect (by default a, button/input, select, textarea auto-enabled, but div, span don't have)
+          tabindex = positive number (1,2..) // tab order is determined by tabindex, ignore element's html order in source code
+          tabindex = 0 //tab order is determined by element's html appearance in source code
+          tabindex = -1; //remove el from tab order, but focus can be used w el.focus()
+          -->
+          <div tabindex="1">a</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script data-main="scripts/main-lab" src="bower_components/requirejs/require.js"></script>
+</body>
+</html>

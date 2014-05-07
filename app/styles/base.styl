@@ -1,0 +1,49 @@
+@import "normalize";
+@import "../../node_modules/nib";
+
+// Shared
+//https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css
+* {
+  box-sizing: border-box;
+}
+
+ul, ol {
+  margin: 0; //default: top&bottom 16px
+}
+
+input {
+  border: 1px solid #ccc;
+
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+// Util
+.list-unstyled {
+  padding-left: 0; //default: left 40px;
+
+  list-style: none;
+}
+.list-nav {
+  @extend .list-unstyled;
+  clearfix();
+
+  > li {
+    float: left;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
