@@ -5,9 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/css3.css">
+  <!-- endbuild -->
+  <!-- build:js scripts/vendor/modernizr.js -->
   <script src="bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
 </head>
 <body>
   <!--[if lt IE 10]>
@@ -19,8 +25,57 @@
     <div class="row">
       <div class="col-lg-6">
         <div id="zone1">
-          Testing...
-          <div class="test"></div>
+          <div class="test">
+            <pre class="doc json">
+{
+  "zones": {
+    "contentZone1": [
+      {
+        "type": "FeaturedCategories",
+        "name": "FeaturedCategories",
+        "module_id": "fe_5",
+        "triggers": [
+          {
+            "zone": "contentZone5",
+            "pageType": "categorypage",
+            "pageId": "133162"
+          }
+        ],
+        "configs": {
+          "categoryID": "5438_133162",
+          "title": "Featured categories in women's apparel",
+          "displayMode": "standard",
+          "boostCategories": ["5438"],
+          "blacklistCategories": ["5438_133162", "5438"],
+          "overrideImages": []
+        }
+      }
+    ],
+    "contentZone2": [
+      {
+        "type": "SingleItem",
+        "name": "SingleItem",
+        "module_id": "fe_5",
+        "triggers": [
+          {
+            "zone": "contentZone2",
+            "pageType": "categorypage",
+            "pageId": "133162"
+          }
+        ],
+        "configs": {
+          "categoryID": "5438_133162",
+          "title": "Featured categories in women's apparel",
+          "displayMode": "standard",
+          "boostCategories": ["5438"],
+          "blacklistCategories": ["5438_133162", "5438"],
+          "overrideImages": []
+        }
+      }
+    ]
+  }
+}</pre>
+          </div>
         </div>
       </div>
     </div>

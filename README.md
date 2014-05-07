@@ -18,6 +18,7 @@ yo backbone --template-framework=handlebars  //then select requirejs, by default
 bower install backbone.localStorage --save //bower list bower.json
 cd test && bower install sinon --save
 npm install & bower install //package.json npm
+npm install moment --save //install and add to package.json
 grunt bower //inject Bower dependecy to RequireJS configuration in main.js
 
 yo backbone:model todo  //create bb model

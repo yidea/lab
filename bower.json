@@ -4,13 +4,16 @@
   "dependencies": {
     "sass-bootstrap": "~3.0.0",
     "jquery": "~1.9.0",
-    "underscore": "~1.4.3",
+    "underscore": "~1.6",
     "backbone": "~1.0.0",
     "requirejs": "~2.1.5",
     "requirejs-text": "~2.0.5",
     "modernizr": "~2.6.2",
     "handlebars": "~1.0.0",
-    "backbone.localStorage": "~1.1.7"
+    "backbone.localStorage": "~1.1.7",
+    "jsonselect": "~0.2.1",
+    "typeahead.js": "~0.10.2",
+    "normalize.styl": "~3.0.0"
   },
   "devDependencies": {}
 }

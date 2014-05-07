@@ -3,9 +3,11 @@ require(["config"], function () {
 //  require(['backbone'], function (Backbone) {
 //    Backbone.history.start();
 //  });
-  require(["jquery", "scripts/src/FEIQ.js"], function () {
+  require(["jquery", "backbone", "views/view"], function ($, Backbone, TodoView) {
     $(function () {
       // Entry-point
+      new TodoView();
+
     });
   });
 });
