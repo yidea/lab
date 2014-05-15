@@ -1,5 +1,18 @@
 # README
 
+## TODO
+
+- cron/scheduler; weather; email/prowl/weibo/twitter
+- BB/Marinate
+- web worker/websocket
+- Async
+- Jekins CI 
+
+## Deployment
+
+- npm install; bower i --allow-root
+- forever start web.js
+ 
 ## Git
 
 - git remote -v 
@@ -42,23 +55,3 @@ sudo chmod -R a+rwx yo/
 // Unit Test & Code Coverage
 // blanket only works w mocha 1.13.0 somehow for now
 https://nicolas.perriault.net/code/2013/get-your-frontend-javascript-code-covered/
-
-## Questions
-
-- Requirement
-TPFLGBA
-modular, scalable, testable components html/css/js
-common data structures and algorithms, profiling/optimization, knowledge of algorithms, design patterns, and componentization approaches
-Test/tdd
-crossbrowser and touch-based
-
-
-- FE
-https://github.com/darcyclarke/Front-end-Developer-Interview-Questions
-http://css-tricks.com/interviewing-front-end-engineer-san-francisco/
-http://blog.sourcing.io/interview-questions
-
-- CSS
-http://philipwalton.com/articles/css-architecture/
-http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
-Multi column layout method
