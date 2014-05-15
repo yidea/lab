@@ -1,5 +1,10 @@
 # README
 
+## Git
+
+- git remote -v 
+- git push heroku master
+
 ## Project Run
 
 - grunt serve //run app w Livereload on localhost:9000
@@ -57,5 +62,3 @@ http://blog.sourcing.io/interview-questions
 http://philipwalton.com/articles/css-architecture/
 http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
 Multi column layout method
-
-
