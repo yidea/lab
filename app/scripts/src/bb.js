@@ -4,6 +4,14 @@ define(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
   var categoryAnalyticsView =  Backbone.view.extend({
     LOADING_SCROLL_TOP_PX: 103, // custom constant
     //template: _template(), //setup template
+    /*
+     * @ events
+     * ----------------------------------
+     * - event will be auto called on init, and all delegate to this.el w $this.el.on(event, "selector", cb)
+     */
+    events: {
+      "click .category-main a[href]": "_onClickMainLink"
+    },
 
     /*
      * @ initialize/constructor
@@ -16,6 +24,9 @@ define(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
     initialize: function () {
       // members
 
+      // set method context
+      _.bindAll(this, "_createChildViews");
+
       // data binding & template render(view listen to model) - use listenTo/listenToOnce (auto cleanup events) over on/once (manual cleanup)
       //this.model is passed when new View({})
       this.listenTo(this.model, {
@@ -25,15 +36,6 @@ define(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
 
       // onPage load action e.g. create child view, analytics
       this._createChildViews();
-    },
-
-    /*
-     * @ events
-     * ----------------------------------
-     * - event will be auto called on init, and all delegate to this.el w $this.el.on(event, "selector", cb)
-     */
-    events: {
-      "click .category-main a[href]": "_onClickMainLink"
     },
 
     /*

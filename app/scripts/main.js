@@ -3,7 +3,8 @@ require(["config"], function () {
 //  require(['backbone'], function (Backbone) {
 //    Backbone.history.start();
 //  });
-  require(["jquery", "backbone", "views/view"], function ($, Backbone, TodoView) {
+
+  require(["jquery", "backbone", "src/util", "views/view"], function ($, Backbone, util, TodoView) {
     $(function () {
       // Entry-point
       new TodoView();
@@ -11,3 +12,4 @@ require(["config"], function () {
     });
   });
 });
+

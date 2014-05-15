@@ -7,6 +7,7 @@
  * http://kangax.github.io/es5-compat-table/
  *
  * TODO:
+ * - once, memerize, chain, wrap
  * - filter
  * - extend
  * - typeof options.symbol !== "undefined" vs. hasOwnProperty()

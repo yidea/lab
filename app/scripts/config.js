@@ -4,6 +4,7 @@
 (function () {
 
   require.config({
+    baseUrl: "scripts",
     shim: {
       jquery: {
         exports: "$"
@@ -28,7 +29,7 @@
       }
     },
     paths: {
-      jquery: '../bower_components/jquery/jquery',
+      jquery: '../bower_components/jquery/dist/jquery.min',
       underscore: '../bower_components/underscore/underscore',
       backbone: '../bower_components/backbone/backbone',
       handlebars: '../bower_components/handlebars/handlebars',

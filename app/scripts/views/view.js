@@ -10,6 +10,7 @@ define(['jquery', 'underscore', 'backbone', "../models/model"
       console.log("TodoView initialized");
       // init model
       var todoModel = new TodoModel();
+      console.log(todoModel.toJSON());
     }
   });
 

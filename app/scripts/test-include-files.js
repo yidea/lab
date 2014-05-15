@@ -5,6 +5,8 @@
 * TODO: auto generated this on watch
 * */
 define([
-  "scripts/src/underscore-lib.js",
-  "spec/underscore-lib.spec.js"
+  "src/util",
+  "src/underscore-lib",
+  "spec/util.spec",
+  "spec/underscore-lib.spec"
 ]);
