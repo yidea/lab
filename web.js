@@ -14,7 +14,7 @@ var hbs = exphbs.create({
 
 // config express app
 app.configure(function () {
-  app.set("port", process.env.PORT || 8000);
+  app.set("port", process.env.PORT || 80);
   app.set("view engine", "handlebars");
   app.engine("handlebars", hbs.engine);
   app.use(express.logger("dev"));
