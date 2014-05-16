@@ -14,7 +14,7 @@ var hbs = exphbs.create({
 
 // config express app
 app.configure(function () {
-  app.set("port", process.env.PORT || 80);
+  app.set("port", process.env.PORT || 3000);
   app.set("view engine", "handlebars");
   app.engine("handlebars", hbs.engine);
   app.use(express.logger("dev"));
@@ -28,6 +28,7 @@ app.configure(function () {
 // routes
 app.get("/", routes.index);
 app.get("/zhiBo", routes.getZhiBo);
+app.get("/weather", routes.getWeather);
 
 // start server
 app.listen(app.get("port"), function() {

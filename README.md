@@ -5,8 +5,9 @@
 - cron/scheduler; weather; email/prowl/weibo/twitter
 - BB/Marinate
 - web worker/websocket
-- Async
-- Jekins CI 
+- Jekins CI/Logs 
+- NPM: Async, Forever, MomentJS, node-schedule
+- Auto deploy to digitalOcean, cron run forever on reboot
 
 ## Deployment
 

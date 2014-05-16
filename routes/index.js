@@ -11,6 +11,38 @@ exports.index = function (req, res) {
   });
 };
 
+/*
+ * @ getZhiBo
+ * ----------------------------------
+ * -
+ */
+exports.getZhiBo = function (req, res) {
+  //TODO: current time count down
+  var URL_ZHIBO = "http://www.zhiboxia.com/";
+  // web scraping
+  request(URL_ZHIBO, function (error, response, html) {
+    if (!error) {
+      // find recent 7 days game box
+      // process each box: extract the content, merge the content if has data
+      var $boxes = $(html).find(".box").slice(2, 9); // first 2 are featured
+      var result = [];
+
+      $boxes.each(function () {
+        var items = _processBox(this);
+        if (!_.isEmpty(items)) {
+          result = result.concat(items);
+        }
+      });
+
+      res.render("zhibo", {
+        title: "zhibo",
+        currentTime: moment().format("llll"),
+        result: result
+      });
+    }
+  });
+};
+
 function _processBox(box) {
   // process the content (matchDate, matchTime)
   var $box = $(box);
@@ -62,31 +94,20 @@ function _getPDTfromChinaTime(cstTime) {
   return matchTime.tz("America/Los_Angeles").format("llll");
 }
 
-exports.getZhiBo = function (req, res) {
-  //TODO:
-  // current time count down
-  var URL_ZHIBO = "http://www.zhiboxia.com/";
-  // web scraping
-  request(URL_ZHIBO, function (error, response, html) {
-    if (!error) {
-      // find recent 7 days game box
-      // process each box: extract the content, merge the content if has data
-      var $boxes = $(html).find(".box").slice(2, 9); // first 2 are featured
-      var result = [];
-      
-      $boxes.each(function () {
-        var items = _processBox(this);
-        if (!_.isEmpty(items)) {
-          result = result.concat(items);
-        }
-      });
-
-      res.render("zhibo", {
-        title: "zhibo",
-        currentTime: moment().format("llll"),
-        result: result
-      });
-    }
+/*
+ * @ getWeather
+ * ----------------------------------
+ * - inspired by https://github.com/dannymidnight/node-weather/blob/master/yahoo.js
+ * - get yahoo weather data via yahoo yql json wrapper or xml2js
+  * http://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%221968212%22&format=json
+ */
+exports.getWeather = function (req, res) {
+  // vdaio
+  var API_YAHOO_WEATHER = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%222455920%22&format=json";
+  
+  request(API_YAHOO_WEATHER, function (error, response, json) { 
+    // vda
+    console.log(json);
   });
 };
 
