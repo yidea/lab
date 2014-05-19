@@ -7,3 +7,5 @@ app/bower_components
 app/scripts/src/notes
 .tmp
 test/bower_components/
+twitterKeys.js
+weiboKeys.js

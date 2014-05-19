@@ -2,6 +2,7 @@
 
 ## TODO
 
+- twitter/weibo bot for csstricks
 - cron/scheduler; weather; email/prowl/weibo/twitter
 - BB/Marinate
 - web worker/websocket

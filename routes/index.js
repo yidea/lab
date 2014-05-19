@@ -1,7 +1,15 @@
 var _ = require("underscore"),
   request = require("request"),
   $ = require("cheerio"),
-  moment = require("moment-timezone");
+  moment = require("moment-timezone"),
+  twitterKeys = require("../twitterKeys"),
+  weiboKeys = require("../weiboKeys"),
+  Oauth= require('oauth'),
+  oa,
+  weibo = require("weibo"),
+  sina = require("node-sina-weibo");
+
+
 //  mongoose = require("../mongoose"),
 //  PresoSchema = mongoose.presoSchema;
 
@@ -14,7 +22,6 @@ exports.index = function (req, res) {
 /*
  * @ getZhiBo
  * ----------------------------------
- * -
  */
 exports.getZhiBo = function (req, res) {
   //TODO: current time count down
@@ -99,17 +106,92 @@ function _getPDTfromChinaTime(cstTime) {
  * ----------------------------------
  * - inspired by https://github.com/dannymidnight/node-weather/blob/master/yahoo.js
  * - get yahoo weather data via yahoo yql json wrapper or xml2js
-  * http://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%221968212%22&format=json
+ * https://developer.yahoo.com/weather
  */
 exports.getWeather = function (req, res) {
   // vdaio
-  var API_YAHOO_WEATHER = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%222455920%22&format=json";
-  
+  // get y weather data now & mv
+  // extract the key info (now - condition, forecast[1].code/high/low/text)
+  // process weather info and alert to iphone(weibo/twitter)
+
+  var API_YAHOO_WEATHER = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%222455920%22%20and%20u%3D%22c%22&format=json";
+
   request(API_YAHOO_WEATHER, function (error, response, json) { 
     // vda
-    console.log(json);
+    var result = {};
+    if (!error) {
+      json = JSON.parse(json);
+      var item = json.query.results.channel.item;
+      // extract info
+      result.title = item.title;
+      result.now = item.condition;
+      result.forcast = item.forecast;
+
+      //_postWeibo();
+
+      res.json(result);
+    }
   });
 };
+
+function _initTwitterOauth() {
+  oa = new Oauth.OAuth(
+    "https://api.twitter.com/oauth/request_token",
+    "https://api.twitter.com/oauth/access_token",
+    twitterKeys.consumer_key,
+    twitterKeys.consumer_secret,
+    '1.0A',
+    null,
+    'HMAC-SHA1'
+  );
+}
+
+function _postTweet(callback) {
+  _initTwitterOauth();
+  //http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html
+  oa.post(
+    "https://api.twitter.com/1.1/statuses/update.json",
+    twitterKeys.access_token_key,
+    twitterKeys.access_token_secret,
+    {"status": "Post 1st tweet via oauth @yidea"},
+    callback
+  );
+}
+
+function _initWeiboOauth() {
+  oa = new Oauth.OAuth2(
+    weiboKeys.consumer_key,
+    weiboKeys.consumer_secret,
+    "https://api.weibo.com/",
+    "oauth2/authorize",
+    "oauth2/access_token"
+  );
+}
+
+
+function _postWeibo() {
+  // get access_token via https://github.com/samxxu/node-sina-weibo
+  var weibo = new sina(weiboKeys.consumer_key, weiboKeys.consumer_secret, weiboKeys.access_token);
+  weibo.POST('statuses/update',
+    { status: "self test6 bot @夜空中最亮的星v" }, function (err, resultInJson, response) {
+      if (!err) {
+        console.log("success");
+      }
+    }
+  );
+
+
+//  oa._request("POST", "https://api.weibo.com/2/statuses/update.json", header, JSON.stringify(data) , callback);
+
+//  oa.post(
+//    "https://api.weibo.com/2/statuses/update.json",
+//    weiboKeys.access_token_key,
+//    weiboKeys.access_token_secret,
+//    {"status": "Post 1st tweet via oauth"},
+//    callback
+//  );
+
+}
 
 exports.getItem = function (req, res) {
   var number = req.param("number"); //string
