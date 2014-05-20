@@ -1,15 +1,13 @@
 var _ = require("underscore"),
+  querystring = require('querystring'),
   request = require("request"),
+  async = require("async"),
   $ = require("cheerio"),
   moment = require("moment-timezone"),
   twitterKeys = require("../twitterKeys"),
   weiboKeys = require("../weiboKeys"),
   Oauth= require('oauth'),
-  oa,
-  weibo = require("weibo"),
-  sina = require("node-sina-weibo");
-
-
+  oa;
 //  mongoose = require("../mongoose"),
 //  PresoSchema = mongoose.presoSchema;
 
@@ -120,21 +118,76 @@ exports.getWeather = function (req, res) {
     // vda
     var result = {};
     if (!error) {
-      json = JSON.parse(json);
+      try {
+        json = JSON.parse(json);
+      } catch (e) {
+        console.log(e);
+        return;
+      }
+
       var item = json.query.results.channel.item;
       // extract info
       result.title = item.title;
       result.now = item.condition;
       result.forcast = item.forecast;
-
-      //_postWeibo();
-
       res.json(result);
     }
   });
 };
 
+exports.getCssTricks = function (req, res) {
+  // cron job end of the day 23:50pm get the latest 5 tweets
+  // map items by seeing if they are created today,
+  // loop result array and weibo it
+
+  _getTweet("Real_CSS_Tricks", 5, function (error, json) {
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    try {
+      json = JSON.parse(json);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+
+    // TODO: pick only needed field
+    // filter by only today's tweet
+    var now = new Date().toDateString();
+    var result =_.filter(json,function (tweet) {
+      if (_.has(tweet, "created_at")) {
+        var createTime = new Date(tweet.created_at);
+        createTime = createTime.toDateString();
+        return createTime === now;
+      }
+    });
+
+    // loop & post to weibo w async
+    if (!_.isEmpty(result)) {
+      async.each(result, function (item, callback) {
+        // iterator
+        _postWeibo(item.text, callback);
+      }, function (error) {
+        // callback when all task done
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(result.length + "message posted");
+        }
+      });
+    }
+
+    res.json(result);
+  });
+
+};
+
+//TODO: factor out as weibo/twitter wrapper
 function _initTwitterOauth() {
+  //  http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html
+  //  https://dev.twitter.com/docs/api/1.1
   oa = new Oauth.OAuth(
     "https://api.twitter.com/oauth/request_token",
     "https://api.twitter.com/oauth/access_token",
@@ -146,15 +199,28 @@ function _initTwitterOauth() {
   );
 }
 
-function _postTweet(callback) {
+function _getTweet(screenName, count, cb) {
   _initTwitterOauth();
-  //http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html
+
+  var api = "https://api.twitter.com/1.1/statuses/user_timeline.json?trim_user=true&exclude_replies=true&screen_name=";
+
+  oa.get(
+    api + screenName + "&count=" + count,
+    twitterKeys.access_token_key,
+    twitterKeys.access_token_secret,
+    cb
+  );
+}
+
+function _postTweet(cb) {
+  _initTwitterOauth();
+
   oa.post(
     "https://api.twitter.com/1.1/statuses/update.json",
     twitterKeys.access_token_key,
     twitterKeys.access_token_secret,
     {"status": "Post 1st tweet via oauth @yidea"},
-    callback
+    cb
   );
 }
 
@@ -168,30 +234,51 @@ function _initWeiboOauth() {
   );
 }
 
-
-function _postWeibo() {
-  // get access_token via https://github.com/samxxu/node-sina-weibo
-  var weibo = new sina(weiboKeys.consumer_key, weiboKeys.consumer_secret, weiboKeys.access_token);
-  weibo.POST('statuses/update',
-    { status: "self test6 bot @夜空中最亮的星v" }, function (err, resultInJson, response) {
-      if (!err) {
-        console.log("success");
-      }
+function _weiboCallbackWrapper(cb) {
+  return function (err, data, response) {
+    if (err) {
+      console.log(err);
+      return;
     }
-  );
-
-
-//  oa._request("POST", "https://api.weibo.com/2/statuses/update.json", header, JSON.stringify(data) , callback);
-
-//  oa.post(
-//    "https://api.weibo.com/2/statuses/update.json",
-//    weiboKeys.access_token_key,
-//    weiboKeys.access_token_secret,
-//    {"status": "Post 1st tweet via oauth"},
-//    callback
-//  );
-
+    var result;
+    try {
+      result = JSON.parse(data);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    cb(null, result, response);
+  };
 }
+
+function _postWeibo(msg, cb) {
+  // @Inspired by npm node-sina-weibo, weibo
+  // repeated content will not be posted treat as error, add a timestamp
+
+  /*
+   * @ How to get Weibo access_token
+   * ----------------------------------
+   * - 0 Doc
+   * http://open.weibo.com/wiki/%E6%8E%88%E6%9D%83%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E
+   * - 1 Get Authorize Code
+   * https://api.weibo.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI
+   * - 2 Get Access Token (Use POSTMAN w post method, not support browser access)
+   * https://api.weibo.com/oauth2/access_token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI&code=CODE
+   */
+
+  if (!cb) {
+    cb = function () {};
+  }
+  _initWeiboOauth();
+
+  var header = {"Content-Type": "application/x-www-form-urlencoded"},
+    data = {status: msg};
+  data.access_token = weiboKeys.access_token;
+
+  data = querystring.stringify(data);
+  oa._request("POST", "https://api.weibo.com/2/statuses/update.json", header, data, weiboKeys.access_token, _weiboCallbackWrapper(cb));
+}
+
 
 exports.getItem = function (req, res) {
   var number = req.param("number"); //string

@@ -2,8 +2,12 @@
 
 ## TODO
 
+- log server console.log
 - twitter/weibo bot for csstricks
 - cron/scheduler; weather; email/prowl/weibo/twitter
+- Async
+- socket.io
+- ToolUtilBox: json,urlencode 
 - BB/Marinate
 - web worker/websocket
 - Jekins CI/Logs 

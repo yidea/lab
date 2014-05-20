@@ -1,5 +1,3 @@
-//git push heroku master
-
 var express = require('express'),
   exphbs = require("express3-handlebars"),
   path = require('path'),
@@ -29,6 +27,7 @@ app.configure(function () {
 app.get("/", routes.index);
 app.get("/zhiBo", routes.getZhiBo);
 app.get("/weather", routes.getWeather);
+app.get("/cssTricks", routes.getCssTricks);
 
 // start server
 app.listen(app.get("port"), function() {
