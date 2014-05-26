@@ -1,18 +1,19 @@
+// Main controller
 var _ = require("underscore"),
   querystring = require('querystring'),
   request = require("request"),
   async = require("async"),
+  NodeWeiboTwitter= require("node-weibo-twitter"),
   $ = require("cheerio"),
   moment = require("moment-timezone"),
-  twitterKeys = require("../twitterKeys"),
-  weiboKeys = require("../weiboKeys"),
-  Oauth= require('oauth'),
-  oa;
+  redis = require("redis"),
+  twitterKeys = require("../configs/twitterKeys"),
+  weiboKeys = require("../configs/weiboKeys");
 //  mongoose = require("../mongoose"),
 //  PresoSchema = mongoose.presoSchema;
 
 exports.index = function (req, res) {
-  res.render("home", { // view partial hbs
+  res.render("home", {
     title: "test"
   });
 };
@@ -99,186 +100,25 @@ function _getPDTfromChinaTime(cstTime) {
   return matchTime.tz("America/Los_Angeles").format("llll");
 }
 
-/*
- * @ getWeather
- * ----------------------------------
- * - inspired by https://github.com/dannymidnight/node-weather/blob/master/yahoo.js
- * - get yahoo weather data via yahoo yql json wrapper or xml2js
- * https://developer.yahoo.com/weather
- */
-exports.getWeather = function (req, res) {
-  // vdaio
-  // get y weather data now & mv
-  // extract the key info (now - condition, forecast[1].code/high/low/text)
-  // process weather info and alert to iphone(weibo/twitter)
+exports.getWeather = require("./getWeather");
 
-  var API_YAHOO_WEATHER = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%3D%222455920%22%20and%20u%3D%22c%22&format=json";
-
-  request(API_YAHOO_WEATHER, function (error, response, json) { 
-    // vda
-    var result = {};
-    if (!error) {
-      try {
-        json = JSON.parse(json);
-      } catch (e) {
-        console.log(e);
-        return;
-      }
-
-      var item = json.query.results.channel.item;
-      // extract info
-      result.title = item.title;
-      result.now = item.condition;
-      result.forcast = item.forecast;
-      res.json(result);
-    }
-  });
-};
-
-exports.getCssTricks = function (req, res) {
-  // cron job end of the day 23:50pm get the latest 5 tweets
-  // map items by seeing if they are created today,
-  // loop result array and weibo it
-
-  _getTweet("Real_CSS_Tricks", 5, function (error, json) {
+exports.getTweet = function (req, res) {
+  // vdaio mv
+  var twitter = NodeWeiboTwitter.create("twitter", twitterKeys);
+  twitter.getTweet("yidea", 5, function (error, json) {
     if (error) {
       console.log(error);
       return;
     }
-
     try {
       json = JSON.parse(json);
     } catch (e) {
       console.log(e);
       return;
     }
-
-    // TODO: pick only needed field
-    // filter by only today's tweet
-    var now = new Date().toDateString();
-    var result =_.filter(json,function (tweet) {
-      if (_.has(tweet, "created_at")) {
-        var createTime = new Date(tweet.created_at);
-        createTime = createTime.toDateString();
-        return createTime === now;
-      }
-    });
-
-    // loop & post to weibo w async
-    if (!_.isEmpty(result)) {
-      async.each(result, function (item, callback) {
-        // iterator
-        _postWeibo(item.text, callback);
-      }, function (error) {
-        // callback when all task done
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(result.length + "message posted");
-        }
-      });
-    }
-
-    res.json(result);
+    res.json(json);
   });
-
 };
-
-//TODO: factor out as weibo/twitter wrapper
-function _initTwitterOauth() {
-  //  http://blog.coolaj86.com/articles/how-to-tweet-from-nodejs.html
-  //  https://dev.twitter.com/docs/api/1.1
-  oa = new Oauth.OAuth(
-    "https://api.twitter.com/oauth/request_token",
-    "https://api.twitter.com/oauth/access_token",
-    twitterKeys.consumer_key,
-    twitterKeys.consumer_secret,
-    '1.0A',
-    null,
-    'HMAC-SHA1'
-  );
-}
-
-function _getTweet(screenName, count, cb) {
-  _initTwitterOauth();
-
-  var api = "https://api.twitter.com/1.1/statuses/user_timeline.json?trim_user=true&exclude_replies=true&screen_name=";
-
-  oa.get(
-    api + screenName + "&count=" + count,
-    twitterKeys.access_token_key,
-    twitterKeys.access_token_secret,
-    cb
-  );
-}
-
-function _postTweet(cb) {
-  _initTwitterOauth();
-
-  oa.post(
-    "https://api.twitter.com/1.1/statuses/update.json",
-    twitterKeys.access_token_key,
-    twitterKeys.access_token_secret,
-    {"status": "Post 1st tweet via oauth @yidea"},
-    cb
-  );
-}
-
-function _initWeiboOauth() {
-  oa = new Oauth.OAuth2(
-    weiboKeys.consumer_key,
-    weiboKeys.consumer_secret,
-    "https://api.weibo.com/",
-    "oauth2/authorize",
-    "oauth2/access_token"
-  );
-}
-
-function _weiboCallbackWrapper(cb) {
-  return function (err, data, response) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    var result;
-    try {
-      result = JSON.parse(data);
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-    cb(null, result, response);
-  };
-}
-
-function _postWeibo(msg, cb) {
-  // @Inspired by npm node-sina-weibo, weibo
-  // repeated content will not be posted treat as error, add a timestamp
-
-  /*
-   * @ How to get Weibo access_token
-   * ----------------------------------
-   * - 0 Doc
-   * http://open.weibo.com/wiki/%E6%8E%88%E6%9D%83%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E
-   * - 1 Get Authorize Code
-   * https://api.weibo.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI
-   * - 2 Get Access Token (Use POSTMAN w post method, not support browser access)
-   * https://api.weibo.com/oauth2/access_token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI&code=CODE
-   */
-
-  if (!cb) {
-    cb = function () {};
-  }
-  _initWeiboOauth();
-
-  var header = {"Content-Type": "application/x-www-form-urlencoded"},
-    data = {status: msg};
-  data.access_token = weiboKeys.access_token;
-
-  data = querystring.stringify(data);
-  oa._request("POST", "https://api.weibo.com/2/statuses/update.json", header, data, weiboKeys.access_token, _weiboCallbackWrapper(cb));
-}
-
 
 exports.getItem = function (req, res) {
   var number = req.param("number"); //string

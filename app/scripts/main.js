@@ -1,14 +1,16 @@
 require(["config"], function () {
 
 //  require(['backbone'], function (Backbone) {
-//    Backbone.history.start();
+  // router #search
+  // pushState
+  //  new Router();
+  // Backbone.history.start(); //start listen to window history change
 //  });
 
-  require(["jquery", "backbone", "src/util", "views/view"], function ($, Backbone, util, TodoView) {
+  require(["jquery", "backbone", "src/util", "views/view", "models/model"], function ($, Backbone, util, ViewTodo, ModelTodo) {
     $(function () {
       // Entry-point
-      new TodoView();
-
+      new ViewTodo({model: new ModelTodo()});
     });
   });
 });

@@ -34,7 +34,7 @@
       backbone: '../bower_components/backbone/backbone',
       handlebars: '../bower_components/handlebars/handlebars',
       modernizr: '../bower_components/modernizr/modernizr',
-      'requirejs-text': '../bower_components/requirejs-text/text',
+      text: '../bower_components/requirejs-text/text',
       requirejs: '../bower_components/requirejs/require',
       'sass-bootstrap': '../bower_components/sass-bootstrap/dist/js/bootstrap',
       'handlebars.runtime': '../bower_components/handlebars/handlebars.runtime',

@@ -1,11 +1,10 @@
-.idea
 node_modules
 dist
+configs
 test/temp
-.sass-cache
+test/bower_components/
 app/bower_components
 app/scripts/src/notes
+.idea
 .tmp
-test/bower_components/
-twitterKeys.js
-weiboKeys.js
+.sass-cache

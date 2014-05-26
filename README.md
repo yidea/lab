@@ -3,7 +3,9 @@
 ## TODO
 
 - log server console.log
+- event emitter
 - twitter/weibo bot for csstricks
+add pic screenshot of the page and
 - cron/scheduler; weather; email/prowl/weibo/twitter
 - Async
 - socket.io
