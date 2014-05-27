@@ -1,6 +1,8 @@
+//http://redislabs.com/
+//http://blog.stevenlu.com/2013/03/07/using-redis-for-caching-in-nodejs/
+
 var redis = require("redis");
 
-//http://redislabs.com/
 var redisClient = redis.createClient(
   10440,
   "pub-redis-10440.us-east-1-3.3.ec2.garantiadata.com",

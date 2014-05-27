@@ -25,8 +25,8 @@ app.configure(function () {
 
 // routes
 app.get("/", routes.index);
-app.get("/zhiBo", routes.getZhiBo);
 
+app.get("/zhiBo", require("./routes/getZhiBo").init);
 app.get("/tweets", require("./routes/botTweets").init);
 app.get("/weather", require("./routes/botWeather").init);
 app.get("/cssTricks", require("./routes/botCssTricks").init);
