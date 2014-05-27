@@ -1,6 +1,7 @@
 node_modules
 dist
 configs
+bin/logs
 test/temp
 test/bower_components/
 app/bower_components
