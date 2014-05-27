@@ -2,13 +2,9 @@
 var _ = require("underscore"),
   querystring = require('querystring'),
   request = require("request"),
-  async = require("async"),
   NodeWeiboTwitter= require("node-weibo-twitter"),
   $ = require("cheerio"),
-  moment = require("moment-timezone"),
-  redis = require("redis"),
-  twitterKeys = require("../configs/twitterKeys"),
-  weiboKeys = require("../configs/weiboKeys");
+  moment = require("moment-timezone");
 //  mongoose = require("../mongoose"),
 //  PresoSchema = mongoose.presoSchema;
 
@@ -99,24 +95,6 @@ function _getPDTfromChinaTime(cstTime) {
   var matchTime = moment.tz(cstTime, "Asia/Shanghai");
   return matchTime.tz("America/Los_Angeles").format("llll");
 }
-
-exports.getTweet = function (req, res) {
-  // vdaio mv
-  var twitter = NodeWeiboTwitter.create("twitter", twitterKeys);
-  twitter.getTweet("yidea", 5, function (error, json) {
-    if (error) {
-      console.log(error);
-      return;
-    }
-    try {
-      json = JSON.parse(json);
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-    res.json(json);
-  });
-};
 
 exports.getItem = function (req, res) {
   var number = req.param("number"); //string

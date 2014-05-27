@@ -2,19 +2,18 @@ var _ = require("underscore"),
   async = require("async"),
   NodeWeiboTwitter= require("node-weibo-twitter"),
   twitterKeys = require("../configs/twitterKeys"),
-  weiboBotKeys = require("../configs/weiboBotKeys");
+  weiboKeys = require("../configs/weiboKeys");
 
 /*
- * @ botCssTricks
+ * @ botTweets
  * ----------------------------------
- * - get CssTricks today's tweets, then bot to weibo if ?post=true, otherwise show tweets
- * - Refacto with botTweets
+ * - get Yidea today's tweets, then bot to weibo if ?post=true, otherwise show tweets
  */
 exports.init = function (req, res) {
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys),
-    weibo = NodeWeiboTwitter.create("weibo", weiboBotKeys);
+    weibo = NodeWeiboTwitter.create("weibo", weiboKeys);
 
-  twitter.getTweet("Real_CSS_Tricks", 5, function (error, json) {
+  twitter.getTweet("Yidea", 5, function (error, json) {
     if (error) throw new Error(error);
 
     try {
@@ -23,8 +22,7 @@ exports.init = function (req, res) {
       throw new Error(e);
     }
 
-    // filter by only today's tweet
-    // TODO: pick only needed field
+    // filter by only today's tweets
     var now = new Date().toDateString(),
       msg,
       result,
@@ -44,12 +42,16 @@ exports.init = function (req, res) {
         async.each(result, function (item, callback) {
           url = _.first(item.entities.urls);
           msg = item.text.replace(url.url, url.expanded_url);
-          weibo.postWeibo(msg, callback);
+          msg = msg.replace(" via @delicious", "");
+
+          weibo.postWeibo(msg, function (err, data) {
+            if (err) console.log(err);
+            callback(err, data);
+          });
+
         }, function (error) {
           if (error) {
             throw new Error(error);
-          } else {
-            console.log(result.length + " articles posted");
           }
         });
       }

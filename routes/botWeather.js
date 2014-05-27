@@ -10,25 +10,30 @@ var _ = require("underscore"),
  * - get Weather info via Yahoo API, then bot to twitter
  * - TODO: add C/U support, use forecast.io instead? (more clear forecast of the day)
  */
-exports.init = function (request, response) {
+exports.init = function (req, res) {
   YQL.weather({woeid: "2455920", unit: "c"})
-    .then(function (res) {
+    .then(function (response) {
       var twitter, today, msg;
-      res = res.query.results.channel.item.forecast;
+      response = response.query.results.channel.item.forecast;
 
-      if (!_.isEmpty(res)) {
-        today = _.first(res);
-        msg = util.format("%s-%s°C | %s | Mountain View | %s %s", today.low, today.high, today.text, today.day, today.date);
+      // only post when passed ?post=true
+      if (req.query.post) {
+        if (!_.isEmpty(response)) {
+          today = _.first(response);
+          msg = util.format("%s-%s°C | %s | Mountain View | %s %s", today.low, today.high, today.text, today.day, today.date);
 
-        // Post to twitter
-        twitter = NodeWeiboTwitter.create("twitter", twitterKeys);
-        twitter.postTweet(msg + " @yidea", function (error, data) {
-          if (error) {
-            console.log(error);
-          }
-        });
+          // Post to twitter
+          twitter = NodeWeiboTwitter.create("twitter", twitterKeys);
+          twitter.postTweet(msg + " @yidea", function (error, data) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
       }
-      response.json(res);
+
+      res.json(response);
+
     }, function (err) {
       console.log(err);
     });
