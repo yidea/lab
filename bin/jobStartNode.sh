@@ -6,6 +6,5 @@ then
   cd ~/projects/lab
   export PORT=80
   export NODE_ENV=production
-  export PATH=/usr/local/bin:$PATH
-  forever start --spinSleepTime 10000 app.js
+  forever start --spinSleepTime 10000 -w app.js
 fi
