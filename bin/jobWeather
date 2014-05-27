@@ -9,7 +9,6 @@ function puts(error, stdout, stderr) {
     console.log(error);
   } else {
 //    sys.puts(stdout);
-//    console.log(process.env.PORT);
   }
 }
 

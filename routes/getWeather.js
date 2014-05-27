@@ -21,11 +21,11 @@ exports.init = function (request, response) {
 
         // Post to twitter
         twitter = NodeWeiboTwitter.create("twitter", twitterKeys);
-//        twitter.postTweet(msg + " @yidea", function (error, data) {
-//          if (error) {
-//            console.log(error);
-//          }
-//        });
+        twitter.postTweet(msg + " @yidea", function (error, data) {
+          if (error) {
+            console.log(error);
+          }
+        });
       }
       response.json(res);
 
