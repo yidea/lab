@@ -13,5 +13,6 @@ function puts(error, stdout, stderr) {
   }
 }
 
-var cmd = util.format("curl http://localhost:%s/weather", process.env.PORT || 3000);
+var PORT = 80,
+  cmd = util.format("export PORT=%s|curl http://localhost:%s/weather", PORT, process.env.PORT);
 exec(cmd, puts);
