@@ -100,8 +100,6 @@ function _getPDTfromChinaTime(cstTime) {
   return matchTime.tz("America/Los_Angeles").format("llll");
 }
 
-exports.getWeather = require("./getWeather");
-
 exports.getTweet = function (req, res) {
   // vdaio mv
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys);

@@ -26,8 +26,10 @@ app.configure(function () {
 // routes
 app.get("/", routes.index);
 app.get("/zhiBo", routes.getZhiBo);
-app.get("/weather", require("./routes/getWeather").init);
 app.get("/twitter", routes.getTweet);
+
+app.get("/weather", require("./routes/botWeather").init);
+app.get("/cssTricks", require("./routes/botCssTricks").init);
 
 // start server
 app.listen(app.get("port"), function() {
