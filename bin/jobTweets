@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+
+var sys = require("sys"),
+  exec = require("child_process").exec,
+  util = require("util");
+
+function puts(error, stdout, stderr) {
+  if (error) {
+    console.log(error);
+  } else {
+//    sys.puts(stdout);
+  }
+}
+
+var PORT = 80,
+  cmd = util.format("export PORT=%s && curl http://localhost:%s/tweets?post=true", PORT, process.env.PORT);
+exec(cmd, puts);
+

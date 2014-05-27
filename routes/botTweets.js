@@ -10,6 +10,7 @@ var _ = require("underscore"),
  * - get Yidea today's tweets, then bot to weibo if ?post=true, otherwise show tweets
  */
 exports.init = function (req, res) {
+  var WEIBO_POST_INTERVAL = 3000; //weibo 20016: update too fast issue
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys),
     weibo = NodeWeiboTwitter.create("weibo", weiboKeys);
 
@@ -39,14 +40,15 @@ exports.init = function (req, res) {
     if (req.query.post) {
       // loop & post to weibo w async
       if (!_.isEmpty(result)) {
-        async.each(result, function (item, callback) {
+        async.eachSeries(result, function (item, callback) {
           url = _.first(item.entities.urls);
           msg = item.text.replace(url.url, url.expanded_url);
           msg = msg.replace(" via @delicious", "");
-
-          weibo.postWeibo(msg, function (err, data) {
-            if (err) console.log(err);
-            callback(err, data);
+          console.log(msg);
+          weibo.postWeibo(msg, function () {
+            setTimeout(function () {
+              callback();
+            }, WEIBO_POST_INTERVAL);
           });
 
         }, function (error) {
