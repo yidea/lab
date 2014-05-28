@@ -14,7 +14,7 @@ exports.init = function (req, res) {
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys),
     weibo = NodeWeiboTwitter.create("weibo", weiboKeys);
 
-  twitter.getTweet("Yidea", 4, function (error, json) {
+  twitter.getTweet("Yidea", 5, function (error, json) {
     if (error) throw new Error(error);
 
     try {
@@ -32,8 +32,7 @@ exports.init = function (req, res) {
       if (_.has(tweet, "created_at")) {
         var createTime = new Date(tweet.created_at);
         createTime = createTime.toDateString();
-//        return createTime === now;
-        return createTime !== now;
+        return createTime === now;
       }
     });
 
