@@ -11,8 +11,11 @@ var _ = require("underscore"),
  * - Refacto with botTweets
  */
 exports.init = function (req, res) {
+  var WEIBO_POST_INTERVAL = 2000; //weibo 20016: update too fast issue
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys),
     weibo = NodeWeiboTwitter.create("weibo", weiboBotKeys);
+  
+
 
   twitter.getTweet("Real_CSS_Tricks", 5, function (error, json) {
     if (error) throw new Error(error);
@@ -41,20 +44,26 @@ exports.init = function (req, res) {
     if (req.query.post) {
       // loop & post to weibo w async
       if (!_.isEmpty(result)) {
-        async.each(result, function (item, callback) {
+        async.eachSeries(result, function (item, callback) {
           url = _.first(item.entities.urls);
           msg = item.text.replace(url.url, url.expanded_url);
-          weibo.postWeibo(msg, callback);
+
+          weibo.postWeibo(msg, function () {
+            setTimeout(function () {
+              callback();
+            }, WEIBO_POST_INTERVAL);
+          });
+
         }, function (error) {
-          if (error) {
-            throw new Error(error);
-          } else {
-            console.log(result.length + " articles posted");
-          }
+          if (error) {console.log(error); return;}
+          res.json(result);
         });
+      } else {
+        res.json(result);
       }
+    } else {
+      res.json(result);
     }
 
-    res.json(result);
   });
 };

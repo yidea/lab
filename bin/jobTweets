@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 var sys = require("sys"),
   exec = require("child_process").exec,
   util = require("util");
@@ -14,5 +13,5 @@ function puts(error, stdout, stderr) {
 }
 
 var PORT = 80,
-  cmd = util.format("export PORT=%s && curl http://localhost:%s/tweets?post=true", PORT, process.env.PORT);
-exec(cmd, puts);
+  cmd = util.format("export PORT=%s && curl --max-time 10 http://localhost:%s/tweets?post=true", PORT, process.env.PORT);
+exec(cmd, puts); //curl w 10s timeout limit

@@ -9,6 +9,8 @@ exports.index = function (req, res) {
   });
 };
 
+exports.todo = function (req, res) {res.render("todo");};
+
 exports.getItem = function (req, res) {
   var number = req.param("number"); //string
   if (_.isEmpty(number)) {

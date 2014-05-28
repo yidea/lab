@@ -25,6 +25,7 @@ app.configure(function () {
 
 // routes
 app.get("/", routes.index);
+app.get("/todo", routes.todo);
 
 app.get("/zhiBo", require("./routes/getZhiBo").init);
 app.get("/tweets", require("./routes/botTweets").init);

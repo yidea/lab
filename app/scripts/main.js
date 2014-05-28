@@ -1,4 +1,5 @@
 require(["config"], function () {
+  // Entry-point
 
 //  require(['backbone'], function (Backbone) {
   // router #search
@@ -7,11 +8,11 @@ require(["config"], function () {
   // Backbone.history.start(); //start listen to window history change
 //  });
 
-  require(["jquery", "backbone", "src/util", "views/view", "models/model"], function ($, Backbone, util, ViewTodo, ModelTodo) {
+  require(["jquery", "backbone", "src/util", "views/todoAppView", "collections/todoCollection"], function ($, Backbone, util, TodoAppView, todos) {
+
     $(function () {
-      // Entry-point
-      new ViewTodo({model: new ModelTodo()});
+//      new ViewTodo({model: new ModelTodo()});
+      new TodoAppView();
     });
   });
 });
-

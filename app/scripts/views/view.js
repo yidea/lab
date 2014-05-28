@@ -1,5 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
-
+define(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
   /*
    * @ BB View
    * ----------------------------------
@@ -21,6 +20,9 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
     initialize: function () {
       console.log("TodoView initialized");
 
+      // Cache dom el
+//      this.$input = this.$('#new-todo');
+
       // Setup init
 //      this.template =
 
@@ -30,7 +32,7 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
       // init subVIEW
 //      this.subView1 = new SubView1({model: this.model});
 
-      // MV Listner
+      // VM Listner
       this.listenTo(this.model, "change", this.render);
       this.listenToOnce(this.model, "initLoad", this.render);
 

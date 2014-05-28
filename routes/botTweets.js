@@ -10,7 +10,7 @@ var _ = require("underscore"),
  * - get Yidea today's tweets, then bot to weibo if ?post=true, otherwise show tweets
  */
 exports.init = function (req, res) {
-  var WEIBO_POST_INTERVAL = 3000; //weibo 20016: update too fast issue
+  var WEIBO_POST_INTERVAL = 2000; //weibo 20016: update too fast issue
   var twitter = NodeWeiboTwitter.create("twitter", twitterKeys),
     weibo = NodeWeiboTwitter.create("weibo", weiboKeys);
 
@@ -52,13 +52,15 @@ exports.init = function (req, res) {
           });
 
         }, function (error) {
-          if (error) {
-            throw new Error(error);
-          }
+          if (error) {console.log(error); return;}
+          res.json(result);
         });
+      } else {
+        res.json(result);
       }
+    } else {
+      res.json(result);
     }
 
-    res.json(result);
   });
 };
