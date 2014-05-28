@@ -16,4 +16,3 @@ function puts(error, stdout, stderr) {
 var PORT = 80,
   cmd = util.format("export PORT=%s && curl http://localhost:%s/tweets?post=true", PORT, process.env.PORT);
 exec(cmd, puts);
-
