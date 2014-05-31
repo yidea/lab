@@ -10,38 +10,39 @@
         exports: "$"
       },
       underscore: {
-        exports: '_'
+        exports: "_"
       },
       backbone: {
-        deps: ['underscore','jquery'],
-        exports: 'Backbone'
+        deps: ["underscore","jquery"],
+        exports: "Backbone"
       },
       handlebars: {
-        exports: 'Handlebars'
+        exports: "Handlebars"
       },
       bootstrap: {
-        deps: ['jquery'],
-        exports: '$'
+        deps: ["jquery"],
+        exports: "$"
       },
-      'jquery.typeahead': {
-        deps: ['jquery'],
-        exports: '$'
+      "jquery.typeahead": {
+        deps: ["jquery"],
+        exports: "$"
       }
     },
     paths: {
-      jquery: '../bower_components/jquery/dist/jquery.min',
-      underscore: '../bower_components/underscore/underscore',
-      backbone: '../bower_components/backbone/backbone',
-      handlebars: '../bower_components/handlebars/handlebars',
-      modernizr: '../bower_components/modernizr/modernizr',
-      text: '../bower_components/requirejs-text/text',
-      requirejs: '../bower_components/requirejs/require',
-      'sass-bootstrap': '../bower_components/sass-bootstrap/dist/js/bootstrap',
-      'handlebars.runtime': '../bower_components/handlebars/handlebars.runtime',
-      'backbone.localStorage': '../bower_components/backbone.localStorage/backbone.localStorage',
-      bootstrap: '../bower_components/sass-bootstrap/dist/js/bootstrap',
-      'jquery.typeahead': '../bower_components/typeahead.js/dist/typeahead.bundle',
-      jsonselect: '../bower_components/jsonselect/src/jsonselect'
+      jquery: "../bower_components/jquery/dist/jquery.min",
+      underscore: "../bower_components/underscore/underscore",
+      backbone: "../bower_components/backbone/backbone",
+      handlebars: "../bower_components/handlebars/handlebars",
+      modernizr: "../bower_components/modernizr/modernizr",
+      text: "../bower_components/requirejs-text/text",
+      requirejs: "../bower_components/requirejs/require",
+      "sass-bootstrap": "../bower_components/sass-bootstrap/dist/js/bootstrap",
+      "handlebars.runtime": "../bower_components/handlebars/handlebars.runtime",
+      "backbone.localStorage": "../bower_components/backbone.localStorage/backbone.localStorage",
+      bootstrap: "../bower_components/sass-bootstrap/dist/js/bootstrap",
+      "jquery.typeahead": "../bower_components/typeahead.js/dist/typeahead.bundle",
+      jsonselect: "../bower_components/jsonselect/src/jsonselect",
+      "hbs.helper": "helper/hbshelper"
     }
   });
 

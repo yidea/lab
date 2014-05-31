@@ -2,6 +2,7 @@ define(["underscore", "backbone", "backbone.localStorage", "models/todoModel"
 ], function (_, Backbone, LocalStorage, Todo) {
   "use strict";
 
+  //TODO: save it via mongodb
   var TodoCollection = Backbone.Collection.extend({
     model: Todo,
 

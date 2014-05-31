@@ -1,11 +1,16 @@
-<div class="js-todo todo">
+{{#section "css"}}
+  <link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+  <link rel="stylesheet" href="styles/app/todo.css">
+{{/section}}
+
+<div class="js-todo todo" id="todoapp">
   <header id="header">
     <!--<h1>todos</h1>-->
     <input id="new-todo" placeholder="test" autofocus>
   </header>
   <section id="main">
     <input id="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
+    <label for="toggle-all">Mark</label>
     <ul id="todo-list"></ul>
   </section>
   <footer id="footer"></footer>

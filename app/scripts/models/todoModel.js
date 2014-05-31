@@ -11,7 +11,6 @@ define(["underscore", "backbone"], function (_, Backbone) {
     toggle: function () {
       this.save({completed: !this.get("completed")});
     }
-
   });
 
   return TodoModel;

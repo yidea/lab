@@ -7,7 +7,14 @@ var express = require('express'),
 // create ExpressHandlebars instance, setup layout & helper
 var hbs = exphbs.create({
   defaultLayout: "main",
-  partialDir: ["views/partials"]
+  partialDir: ["views/partials"],
+  helpers: {
+    section: function(name, options){
+      if(!this.sections) this.sections = {};
+      this.sections[name] = options.fn(this);
+      return;
+    }
+  }
 });
 
 // config express app
