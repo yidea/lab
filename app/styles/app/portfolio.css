@@ -169,6 +169,10 @@ a:hover {
   background-color: #42a77f;
   color: #fff;
 }
+/*footer*/
+.footer p {
+  color: #999;
+}
 /*typed.js */
 .typed-cursor {
   padding-left: 5px;
