@@ -61,8 +61,8 @@ app.get("/tweets", require("./routes/botTweets").init);
 app.get("/weather", require("./routes/botWeather").init);
 app.get("/cssTricks", require("./routes/botCssTricks").init);
 // api w mongolab
-app.get("/mongolab", mongodb.getAll);
-app.post("/mongolab", mongodb.post);
+//app.get("/mongolab", mongodb.getAll);
+//app.post("/mongolab", mongodb.post);
 
 // start server
 app.listen(app.get("port"), function() {
