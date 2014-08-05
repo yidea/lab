@@ -3,7 +3,7 @@ var _ = require("underscore");
 exports.index = function (req, res) {
   res.render("portfolio", {
     layout: "layout-portfolio",
-    title: "portfolio"
+    title: "Yi Cao - UX Designer turned Front End Developer"
   });
 };
 
