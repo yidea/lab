@@ -58,6 +58,8 @@ Normalize keep things original as browser default stylesheet, e.g. no override/c
 * -------------
 * MBPWH
 * CSS specificity
+* PDF (position vs. display vs. float) - foundation of layout
+http://www.w3.org/TR/CSS2/visuren.html#dis-pos-flo
 * */
 
 /* @ Box-sizing
@@ -74,7 +76,7 @@ http://css-tricks.com/box-sizing/
 }
 
 
-/* @ Position property
+/* @ Position
 * -------------
 1 static
 2 relative
@@ -82,8 +84,13 @@ http://css-tricks.com/box-sizing/
 */
 
 
-/* @ Display: inline vs. inline-block vs. block
+/* @ Display
 * -------------
+0 none
+1 inline
+2 inline-block
+3 block
+
 CodePen: http://codepen.io/yidea/pen/BAaoK
 
 1 none
@@ -100,9 +107,20 @@ CodePen: http://codepen.io/yidea/pen/BAaoK
 */
 
 
-/* @ Float & Clearfix
+/* @ Float
 * -------------
-Float vs. inline-block+vertical-algin:top for horizontal navigation layout
+Float vs. inline-block+vertical-align:top for horizontal navigation layout
+- Clearfix
+Elements following a floated element will wrap around the floated element
+clear:both;
+.clearfix:after {content:""; }
+- Display:block
+When you float an element it becomes a block box (no longer part of inline layout flow). so when float: left/right, no need to set display, it's always set to display:block
+- Width
+Don't forget set width on floated item and it's still in the normal doc flow, otherwise it will shrink to the widest child element (but might be unpredicatable)
+
+Tutorial
+http://www.smashingmagazine.com/2007/05/01/css-float-theory-things-you-should-know/
 */
 
 

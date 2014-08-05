@@ -2,6 +2,7 @@ define(["jquery", "underscore", "backbone"], function ($, _, Backbone) {
   /*
    * @ BB View
    * ----------------------------------
+   * - view is a modal presenter, reflect changes in model
    * - when need view, a dom element that is interactive base on user's action/server data change
    */
   var ViewTodo = Backbone.View.extend({

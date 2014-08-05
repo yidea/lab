@@ -1,0 +1,135 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row">
+  <!--main-->
+  <div class="js main col-md-9" role="main">
+    <!--JS Must Read-->
+    <section>
+      <h1 class="page-header" id="js_must_read">JS Must Read</h1>
+      <ul>
+        <li><a href="https://plus.google.com/+AddyOsmani/posts/H3onog42Msj">Addy Osmani's Recommendation</a></li>
+        <li><a href="http://eloquentjavascript.net/2nd_edition/preview/">Book - Eloquent JavaScript - (Intro)</a></li>
+        <li>
+          <a href="">Book - Principles of Object-Oriented Programming in JS, Nicholas Zakas</a>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
+          </div>
+        </li>
+        <li>
+          <a href="https://github.com/getify/You-Dont-Know-JS">Book - You Don't Know JS(Scope & Closures), Kyle Simpson</a>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
+          </div>
+        </li>
+        <li>
+          <a href="">Book - Professional JavaScript for Web Developers, Nicholas Zakas</a>
+        </li>
+        <li>
+          <a href="">Book - JavaScript Patterns, Stoyan Stefanov</a>
+        </li>
+        <li>
+          <a href="">Book - Secrets of the JavaScript Ninja, John Resig</a>
+        </li>
+      </ul>
+    </section>
+
+    <!--JS Style Guide-->
+    <section>
+      <h1 class="page-header" id="js_styleguide">JS Style Guide</h1>
+      <ul>
+        <li><a href="https://github.com/airbnb/javascript">Airbnb JS Style Guide</a></li>
+        <li><a href="https://github.com/rwaldron/idiomatic.js/">idiomatic.js</a></li>
+      </ul>
+    </section>
+
+    <!--Scope & Hoisting & Closure-->
+    <section>
+      <h1 class="page-header" id="js_scope">Scope & Hoisting & Closure & IIFE</h1>
+      <h3>Read</h3>
+      <ul>
+        <li><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/scope%20%26%20closures">Book - You Don't Know JS(Scope & Closures), CH 1-5</a></li>
+      </ul>
+      <iframe width="100%" height="350" data-src="http://jsbin.com/welezo/latest/embed?js," allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <!--OOP & Prototype-->
+    <section>
+      <h1 class="page-header" id="oop">OOP w Prototype & Object Pattern</h1>
+      <h3>Read</h3>
+      <ul>
+        <li><a href="">Book - Principles of Object-Oriented Programming in JS</a></li>
+      </ul>
+      <iframe width="100%" height="350" data-src="http://jsbin.com/cayap/latest/embed?js," allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <!--Primitives-->
+    <section>
+      <h1 class="page-header" id="primitive">Primitives</h1>
+      <ul>
+        <li>5 Primitives: string, number, boolean, null, undefined</li>
+        <li>Primitives are passed/compared by copied value: "a"==="a"</li>
+        <li>Primitive wrapper: string, number, boolean will auto convert to its primitive wrapper when need use as object e.g.
+          {{#htmlcode "pre"}}
+            var char = "andy".charAt(0);
+            //Behind the scenes w auto created primitive wrapper object, then clear after use
+            var wrapper = new String("andy");
+            var char = wrapper.charAt(0);
+            wrapper = null;
+          {{/htmlcode}}
+        </li>
+        <li>Type Coercion:
+          console.log("5" + 1); //="51"
+          console.log("5" - 1); //=4
+          1+true === 2
+        </li>
+      </ul>
+
+      <!--String-->
+      {{> doc/js/string}}
+
+      <!--Number-->
+      {{> doc/js/number}}
+
+      <!--Boolean, Null, Undefined-->
+      <h2 id="boolean-null">Boolean, Null, Undefined</h2>
+      <iframe width="100%" height="350" data-src="http://jsbin.com/qiyoj/latest/embed?js," allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+
+    <!--Objects-->
+    <section>
+      <h1 class="page-header" id="complex-object">Complex Object</h1>
+      <ul>
+        <li>Complex Object: {}, [], function(){}, Date, /\s*/</li>
+        <li>Pass/compared by ref: {}!=={}</li>
+      </ul>
+
+      <!--Object-->
+      {{> doc/js/object}}
+
+      <!--Array-->
+      {{> doc/js/array}}
+
+      <!--Function-->
+      {{> doc/js/function}}
+
+      <!--Regular Expression-->
+      {{> doc/js/regular_expression}}
+    </section>
+
+    <!--DOM-->
+    {{> doc/js/dom}}
+
+    <!--BOM-->
+    {{> doc/js/bom}}
+
+    <!--Events-->
+    {{> doc/js/events}}
+
+    <!--HTML5 API-->
+    {{> doc/js/html5_pushstate}}
+  </div>
+
+  {{> doc/sidebar}}
+</div>

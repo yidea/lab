@@ -131,7 +131,7 @@ define([], function () {
    * @returns
    */
   u.isUndefinedOrNull = function (obj) {
-    return obj == null; //addon to underscorejs
+    return obj == null; //addon
   };
 
   /**
@@ -148,7 +148,7 @@ define([], function () {
 
   /**
    * .contains (obj, value)
-   * - check if array/obj contains a given value ===
+   * - check if array/obj contains a given value ===, similar to array.indexOf(), fallback IE9
    * - doesn't work with string right now
    * @param obj
    * @param value
@@ -188,7 +188,7 @@ define([], function () {
       // NodeList is inherited from host object not from array, so don't have forEach, map, filter API
       if (nativeForEach && collection.forEach === nativeForEach) { //Prefer use feature detection instead of type detection
         collection.forEach(iterator, context);
-      } else { // fallback w for loop
+      } else { // fallback for IE8 for array.foreach and string (string has not forEach)
         var len = collection.length; // better performance
         for (; i < len; i++) {
           result = iterator.call(context, collection[i], i, collection);
@@ -245,14 +245,24 @@ true
    * @ Collection / Hashtable-like
    * ----------------------------------
    */
+  // internal helper to wrap iterator (function/object)
+  function lookupIterator (iterator, context, argCount) {
+    if (iterator == null) throw new Error("iterator is not set");
+    if (_.isFunction(iterator)) return createCallBack(iterator, context, argCount);
+    if (_.isObject(iterator)) return _.matches(iterator);
+    return _.property(iterator);
+  }
+
+  function createCallBack (func, context, argCount) {
+    if (context == null) return func;
+  }
+
   /**
-   * .some (obj, callback, context) / .any
-   * - test whether some elements in array/obj passes test function
-   * - u.some({a: 1}, function(value, key, obj){return value === 1})
-   * @param obj
-   * @param callback
-   * @param [context]
+   * @method .some (obj, callback, context) | .any()
+   * @description test if any element in array/obj passed truth test
+   * @param {}
    * @returns {boolean}
+   * @example .some([1,2], function(value){return value%2===0}); //=true
    */
   u.some = u.any = function (obj, callback, context) {
     if (obj == null) {return false;} //validate null/undefined
@@ -269,11 +279,96 @@ true
     return !!result;
   };
 
-  // .filter returns new array with items that pass the test fn
-  // .filter(arr, callback)
-  // .filter([1, 2, 3], function () {})
-  u.filter = function (array, callback) {
+  /**
+   * @method .property(key)
+   * @description return an iterator function that return key of any passed-in object
+   * @param {}
+   * @returns {}
+   * @example .property("name")({name:"mike"})
+   */
+  u.property = function (key) {
+    return function (obj) {
+      return obj[key];
+    };
+  };
 
+  /**
+   * @method .matches(attrs)(obj)
+   * @description return an iterator function for .filter to use, test if array of object has property
+   * @param {}
+   * @returns {}
+   * @example _.filter([{name:"mike",age:10}, {name:"andy",age:12}], .matches({name:"mike"})); //= [{name:"mike",age:10}]
+   * .matches({name: "mike"})({name: "mike",age:12}); //=true
+   */
+  u.matches = function (attrs) {
+    return function (obj) {
+      var key;
+      if (obj === attrs) return true;
+      for (key in attrs) {
+        if(attrs[key] !== obj[key]) return false;
+        return true;
+      }
+    };
+  };
+
+  /**
+   * @method .filter(list, iterator, [context])
+   * @description return an array w filtered items that passed truth test, use Array.filter() for array, for object loop property
+   * @param {array|object} collection can be array|object
+   * @param {function} iterator
+   * @param {object} [context]
+   * @returns {array}
+   * @example
+   * .filter([1,2,3,4], function(value){return value%2===0}); //=[2,4]
+   * .filter({a:1,b:2}, function(value){return value%2!==0}); //=[1]
+   * .filter({a:1,b:2}, {a:1}); //=[1]
+   */
+  u.filter = function (collection, iterator, context) {
+    var results = [];
+    if (collection == null) return results;
+    iterator = lookupIterator(iterator, context);
+    // use native Array.filter if supported
+    if (Array.prototype.filter && collection.filter === Array.prototype.filter) {
+      return collection.filter(iterator, context);
+    }
+    // for object & Array.filter not supported
+    each(collection, function (value, key, list) {
+      // TODO: add support for criteria as {a:1}, wrap iterator if it's a object
+      if(iterator(value, key, list)) results.push(value);
+    });
+    return results;
+  };
+
+  /**
+   * @method .find(list, iterator, [context])
+   * @description similar as .filter, but return the first value which pass the truth test, otherwise returns undefined
+   * @param {}
+   * @returns {}
+   * @example .find([1,2,3], function(value){return value%2===0})
+   */
+  u.find = u.detect = function (list, iterator, context) {
+    var result;
+    if (list == null) return result;
+    iterator = lookupIterator(iterator, context);
+    _.some(list, function (value, index, list) {
+      if (iterator(value, index, list)) {
+        result = value;
+        return true;
+      }
+    });
+    return result;
+  };
+
+  /**
+   * @method .where(list, {property})
+   * @description return an array w filtered items that matches give criteria object(key,value), simply .filter(list, {key,value})
+   * @param {}
+   * @returns {}
+   * @example
+   * .where([{name:"mike",age:12}, {name: "andy",age:15}], {name: "mike"}); //=[{name:"mike",age:12}]
+   */
+  u.where = function (list, prop) {
+    return u.filter(list, prop);
   };
 
   /**
@@ -302,11 +397,12 @@ true
 
   /**
    * @method .pluck (obj, key)
-   * @description extract certain property from arrays of objects(table) as values array, a simple usage of .map
+   * @description extract certain property from array of objects/array(table) as values array, a simple usage of .map
    * @param {Object} obj
    * @param {String} key
    * @returns {Array}
-   * @example .pluck([{name: "test1", age: 10}, {name: "test2", age: 11}], "age"); //= [10, 11]
+   * @example
+   * .pluck([{name: "test1", age: 10}, {name: "test2", age: 11}], "age"); //= [10, 11]
    */
   u.pluck = function (obj, key) {
     if (!u.isObject(obj)) { throw new TypeError("Invalid obj"); }
@@ -318,9 +414,9 @@ true
 
   /**
    * @method .pairs (obj)
-   * @description convert an object{key, value] to an array of [key, value]
-   * @param {Object}
-   * @returns
+   * @description convert an object{key, value] to an array of [[key, value]]
+   * @param {object}
+   * @returns {array}
    * @example .pairs({name: "test", age: 23}); //[["name", "test"], ["age", 23]]
    */
   u.pairs = function (obj) {
@@ -421,7 +517,7 @@ true
     return min;
   };
 
-  /**
+  /** TODO: underscore has removed .sort(), use sortBy()
    * @method .sort(array, [compareFn])
    * @description use native array sort, if no compareFn, array is sorted using string dictionary order(1, 10, 2) compareFn(a,b) if return value > 0, sort b to lower index than a
    * @example .sort(array, function(a,b){return b-a}) //desc
@@ -443,6 +539,7 @@ true
    * - use to remove string duplicate
    * @param array
    * @returns {*}
+   * @example .uniq([1,2,3,3,4]); //=[1,2,3,4]
    */
   u.uniq = u.unique = function (array) {
     if (array == null) {return null;}
@@ -475,9 +572,7 @@ true
     return null;
   };
 
-
   // .toArray()
-
 
   /*
    * @ Object
@@ -556,6 +651,24 @@ true
     return obj;
   };
 
+  /**
+   * @method .invert(obj)
+   * @description create a inverted object(value,key) from obj(key,value), need obj values unique to get it working, also need to be string
+   * @param {}
+   * @returns {}
+   * @example .invert({a:1,b:2}); //={1:a, 2:b}
+   */
+  u.invert = function (obj) {
+    var result = {};
+    if (obj == null) throw new Error("obj is not set");
+    if (!u.isObject(obj)) throw new TypeError("not a valid object");
+    // TODO: add a layer of checking obj value unique?
+    each(obj, function (value, key) {
+      value = u.isNumber(value) ? value.toString() : value;
+      result[value] = key;
+    });
+    return result;
+  };
 
   // .clone  deepcopy
 
@@ -682,7 +795,103 @@ true
     return obj;
   };
 
-  // Memoize an expensive function by storing its results.
+  // Memorize an expensive function by storing its results.
+
+  // Debounce & throttle
+  // http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+  u.debounce = function (func, wait, immediate) {
+    // return a new function with threshold setTimout: create setTimeout first, and blocking fire unless within wait, then clearTimeout
+    var timeout;
+    return function debounced() {
+      var context = this,
+        args = arguments;
+
+      function delayedFunc() {
+        //exec and clear timeout
+        func.apply(context, args);
+        timeout = null;
+      }
+
+      if(!timeout) {
+        timeout = setTimeout(delayedFunc, wait);
+      }
+    };
+  };
+
+  /*
+   * @ Util
+   * ----------------------------------
+   */
+  /**
+   * @method .random(min, max)
+   * @description return a random integer between [min, max]
+   * @param {}
+   * @returns {}
+   * @example
+   * .random(0,100); //=42
+   */
+  u.random = function (min, max) {
+    if (min == null) throw new Error("min is not set");
+    if (max == null) { //only one args, [0,min]
+      max = min;
+      min = 0;
+    }
+    if (min > max) {
+      var temp = max;
+      max = min;
+      min = temp;
+    }
+    // Math.random() generate float num from [0,1), Math.floor() will get the floor rounded integer
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  var htmlEscapeMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#x27;"
+    },
+    htmlUnescapeMap = u.invert(htmlEscapeMap);
+  /**
+   * @method .escape(str)
+   * @description escape string for insertion into HTML, replacing &,<,>,",'
+   * @param {string} str
+   * @returns {string}
+   * @example .escape("<h1>title</h1>")
+   */
+  u.escape = function (str) {
+    // 2 ways (fastest is using replace or regex)
+    // 2nd way (intuitive) use dom .innerHML textNode to filter the html
+    //    var div = document.createElement("div");
+    //    div.appendChild(document.createTextNode(html));
+    //    return div.innerHTML;
+    var result = "";
+    if (str == null) return result;
+    var regEscape = new RegExp("[" + u.keys(htmlEscapeMap).join("") + "]", "g");
+    result = ("" + str).replace(regEscape, function (match) {
+      return htmlEscapeMap[match];
+    });
+    return result;
+  };
+
+  /**
+   * @method .unescape(str)
+   * @description reverse from .escape()
+   * @param {string} str
+   * @returns {string}
+   * @example .unescape("&lt;h1&gt;title&lt;/h1&gt;");
+   */
+  u.unescape= function (str) {
+    var result = "";
+    if (str == null) return result;
+    var regUnEscape = new RegExp("(" + u.keys(htmlUnescapeMap).join("|") + ")", "g");
+    result = ("" + str).replace(regUnEscape, function (match) {
+      return htmlUnescapeMap[match];
+    });
+    return result;
+  };
+
 
   /*
    * @ Regular Expression Util

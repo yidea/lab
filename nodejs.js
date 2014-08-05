@@ -41,13 +41,74 @@ var counter = require("./utils/module1");
 console.assert(counter.count() === 1, counter.count());
 
 /*
- * @ FS module
+ * @ Events & Callback
  * -------------
- * - File system I/O API
+ * - Node.js is based on events loop + callback to avoid blocking I/O,
+ * - EventEmitter module
  */
-var fs = require("fs"),
-  path = require("path");
+var events = require("events"); //load event module
+var util = require("util");
+var eventEmitter = new events.EventEmitter();
+eventEmitter.on("init", function (data) {
+//  console.log("event: init " + data);
+});
+eventEmitter.emit("init", "data"); //trigger event and pass data
+// a class w event functionality
+function View(el) {
+  events.EventEmitter.call(this); //inherit constructor
+  this.el = el;
+}
+util.inherits(View, events.EventEmitter); //inherit w util.inherits()
+//View.prototype.__proto__ = events.EventEmitter.prototype; //inherit prototype w __proto__
+var view = new View("el");
+view.on("render", function () {
+//  console.log("view: render");
+});
+view.emit("render");
 
+/*
+ * @ I/O
+ * -------------
+ * - JSON (string)
+ * - Buffer (binary)
+ * - Stream (File I/O)
+ */
+//@@ JSON
+// JSON(string) <-> JS object (Serializing/Deserializing)
+var jsonString = '{"name":"Jedi", "members":["Yoda","Obi Wan"], "number":34512, "location": "A galaxy far, far a way"}';
+try {
+  var accountObj = JSON.parse(jsonString); //JSON str-> JS object + try catch
+} catch (e) {
+  console.log(e);
+}
+//console.log(accountObj.name); //=Jedi
+var jsonStr = JSON.stringify(accountObj); //JS object -> JSON str
+//console.log(jsonStr); //{"name": ...}
+
+//@@ Buffer
+//Buffer is an addition to primitives, nodejs use buffer for stream binary data (compressed files, dynamic img). e.g. http.get
+//can use zlib module to compress/decompress data require("zlib")
+var fs = require("fs");
+var bufUTF8 = new Buffer("Some UTF8 Text \u00b6 \u30c6 \u20ac", 'utf8');
+//console.log(bufUTF8.toString()); //="Some UTF8 Text ¶ テ €"
+
+//@@ Stream
+//Node.js's stream module provides an memory structure for read/write HTTP request/local file
+// 1 load json synchronize w require
+//var jsonSync = require("./package.json");
+// 2 load json config async w stream
+var stream = fs.createReadStream("./package.json"); // read
+//var write = fs.createWriteStream("./copy.json"); //create & write file
+var data;
+stream.on("data", function (chunck) {
+  data += chunck;
+});
+stream.on("end", function () {
+  //console.log(data); //finished loading, then can use data
+});
+
+//@@ File system I/O API
+var path = require("path");
 //copy file from src to dst - small files, use stream for large files
 function copy(src, dst) {
   fs.writeFileSync(dst, fs.readFileSync(src));
@@ -68,24 +129,6 @@ function travel(dir, callback) {
   //console.log(pathname); //TODO:debug
 //});
 
-/*
- * @ Buffer & Stream
- * ----------------------------------
- * - Buffer is an addition to primitives, nodejs use buffer for stream. e.g. http.get
- */
-// 1 load json synchronize w require
-//var jsonSync = require("./package.json");
-
-// 2 load json async w stream
-var stream = fs.createReadStream("./package.json"); // read
-//var write = fs.createWriteStream("./copy.json"); //create & write file
-var data;
-stream.on("data", function (chunck) {
-  data += chunck;
-});
-stream.on("end", function () {
-//  console.log(data); //finished loading
-});
 
 /*
  * @ HTTP module
@@ -189,17 +232,17 @@ app.configure("development", function () {
 //});
 app.get("/", routes.index);
 app.get("/item/:number", routes.getItem); //w url param
-app.get("/getJSON", routes.getJSON);
-app.get("/readMongolab", routes.readMongolab); //read data from MongoLab via mongoose
-app.post("/writeToMongolab", routes.writeToMongolab); //write to MongoLab via mongoose schema
-app.get("/zhiBo", routes.getZhiBo); // web
+//app.get("/getJSON", routes.getJSON);
+//app.get("/readMongolab", routes.readMongolab); //read data from MongoLab via mongoose
+//app.post("/writeToMongolab", routes.writeToMongolab); //write to MongoLab via mongoose schema
+//app.get("/zhiBo", routes.getZhiBo); // web
 
 
 // start server
-http.createServer(app).listen(app.get("port"), function () {
-//  open("http://localhost:3000"); //open url in ur default browser
-  console.log("http server running on http://localhost:" + app.get("port"));
-});
+//http.createServer(app).listen(app.get("port"), function () {
+////  open("http://localhost:3000"); //open url in ur default browser
+//  console.log("http server running on http://localhost:" + app.get("port"));
+//});
 
 /*
  * @ Nodejs Debug

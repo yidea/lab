@@ -1,0 +1,49 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row" role="main">
+  <div class="col-md-9" role="main">
+    <!--Mobile Performance-->
+    <section>
+      <h1 class="page-header" id="performance">Mobile Performance</h1>
+
+      <!--Touchstart vs. click & 300ms delay-->
+      <h2 id="performance-touch">Touchstart vs. click & 300ms delay</h2>
+      <ul>
+        <li>
+          <a href="https://developers.google.com/mobile/articles/fast_buttons">https://developers.google.com/mobile/articles/fast_buttons</a>
+          <blockquote>
+            <p>Mobile browser will wait 300ms from user's first tap to fire click event, the reason is browser is waiting if there's double tap
+
+              http://ionicframework.com/blog/hybrid-apps-and-the-curse-of-the-300ms-delay/
+              http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
+              http://www.sitepoint.com/5-ways-prevent-300ms-click-delay-mobile-devices/
+              http://phonegap-tips.com/articles/fast-touch-event-handling-eliminate-click-delay.html
+              <a href="https://github.com/ftlabs/fastclick">https://github.com/ftlabs/fastclick</a>
+            </p>
+          </blockquote>
+        </li>
+      </ul>
+
+      <!--Hardware Acceleration & Avoid $.animate-->
+      <h2 id="performance-hardware">Hardware Acceleration & Avoid $.animate</h2>
+      <ul>
+        <li>
+          {{#htmlcode}}$el.animate({left: "700%"}, 500){{/htmlcode}} will manipulate the dom inline style on every animation rate(force browser recalculate layout), thus it's sluggish
+          https://developers.google.com/speed/articles/reflow
+        </li>
+        <li>Use CSS3 translate3d, translateZ to force device use GPU for calculate/save animation, so will be smoother&faster{{#htmlcode}}transform: translate3d(0){{/htmlcode}} or {{#htmlcode}} transform: translateZ(0) translateX(0);{{/htmlcode}}
+          <a href="http://www.smashingmagazine.com/2012/06/21/play-with-hardware-accelerated-css/">http://www.smashingmagazine.com/2012/06/21/play-with-hardware-accelerated-css/</a>
+        <a href="http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/">http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/</a>
+        </li>
+        <li>
+
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  {{> doc/sidebar}}
+</div>

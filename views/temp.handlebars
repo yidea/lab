@@ -1,0 +1,32 @@
+<div class="js-header header">
+  <form class="js-searchbar searchbar" name="searchbar" action="/search" method="get" role="search">
+    <div class="searchbar-inner">
+      <div class="js-searchbar-select searchbar-select">
+        <div class="js-flyout flyout flyout-bottom">
+          <button class="js-flyout-toggle dropdown" data-cat-id="0" type="button">All</button>
+          <div class="js-flyout-modal flyout-modal">
+            <ul class="block-list">
+              <li><button data-cat-id="0" type="button">All Department</button></li>
+              <li><button data-cat-id="976759" type="button">Party & Occasions</button></li>
+              <li><button data-cat-id="976760" type="button">Health</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="searchbar-typeahead">
+        <div class="searchbar-typeahead-input empty">
+          <div class="js-searchbar-overlay searchbar-overlay"></div>
+          <input class="js-searchbar-input js-header-instant-placeholder searchbar-input" type="text" name="query" placeholder="Search" value="" autocomplete="off" spellcheck="false">
+          <button class="js-searchbar-clear searchbar-clear btn-link" type="reset">
+            <i class="wmicon wmicon-remove"></i><span class="visuallyhidden">Clear search field</span>
+          </button>
+        </div>
+        <div class="searchbar-typeahead-submit">
+          <button type="submit">
+            <i class="wmicon wmicon-search"></i><span class="visuallyhidden">Search</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,72 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row" role="main">
+  <div class="col-md-9" role="main">
+    <section>
+      <h1 class="page-header" id="performance">Performance</h1>
+
+      <h3>- Read</h3>
+      <ul>
+        <li><a href="http://www.stevesouders.com/blog/2009/06/03/using-iframes-sparingly/">http://www.stevesouders.com/blog/2009/06/03/using-iframes-sparingly</a></li>
+        <li>
+          <a href="http://blog.pamelafox.org/2014/01/improving-front-page-performance.html">Khan Academy FE performance improvement practice</a>
+        </li>
+        <li>
+          <a href="http://engineering.linkedin.com/linkedin-ipad-5-techniques-smooth-infinite-scrolling-html5">Linkedin improve iPad infinite scroll</a>
+        </li>
+        <li>
+          <a href="http://www.bookofspeed.com/">Book of Speed BY STOYAN STEFANOV</a>
+        </li>
+      </ul>
+
+      <!--Onload blocking-->
+      <h2 id="performance_onload">Onload blocking</h2>
+      <ul>
+        <li>
+          <h3>Lazyload img, iframe. Async script, only load onDemand</h3>
+          <a href="http://www.appelsiini.net/projects/lazyload">http://www.appelsiini.net/projects/lazyload</a>
+          <a href="http://www.aaronpeters.nl/blog/iframe-loading-techniques-performance">http://www.aaronpeters.nl/blog/iframe-loading-techniques-performance</a>
+        </li>
+      </ul>
+
+      <!--debounce UI events-->
+      <h2 id="debounce_event">Rate-limit UI events: scroll, resize, keyup, mousemove, ajax</h2>
+      <p>It's bad idea to attache handler to window scroll (fire lots, callback take time thus make scroll unsmooth), if have to, use rate-limit control with Debounce, also cache selector. Also 250ms debounce for keyup typing
+      </p>
+      <p><b>Debounce:</b> N->1 in certain time, ensures that exactly one signal is sent for an event that may be happening several times.
+        <b>Throttling:</b> N->N with same interval, reduction in rate of a repeating event. Debounce did a much better job of reducing XHR requests than throttling.
+      </p>
+      <h3>-Read</h3>
+      <ul>
+        <li><a href="http://ejohn.org/blog/learning-from-twitter">learning-from-twitter scroll issue</a></li>
+        <li><a href="http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html">How (not) to trigger a layout in WebKit</a></li>
+      </ul>
+      <h2 id="reflow_repaint">Reflow & Repaint</h2>
+      <a href="http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html">http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html</a>
+
+      <!--inline js css-->
+      <h2 id="inline_js_css">Inline JS & CSS?</h2>
+      <ul>
+        <li>
+          <p><b>Bad:</b> Bad for code separation/manage, and XSS vulnerable and stopped CSP practice. can't be cached</p>
+        </li>
+        <li>
+          <p><b>Good:</b> Mobile with high latency connections, inline scripts/styles perform better due to the lower number of connections required to satisfy a window load
+          </p>
+        </li>
+      </ul>
+
+      <!--requestAnimationFrame-->
+      <h2 id="requestAnimationFrame">Animation w requestAnimationFrame</h2>
+      <ul>
+        <li><a href="http://www.html5rocks.com/en/tutorials/speed/animations/">requestAnimationFrame will help us smart animate with 60 frames/s</a></li>
+      </ul>
+
+    </section>
+
+  </div>
+
+  {{> doc/sidebar}}
+</div>

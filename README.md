@@ -42,7 +42,7 @@ Mocha + Chai + Sinon
 - Commands:
 yo backbone --template-framework=handlebars  //then select requirejs, by default test framework mocha + chai
 bower install backbone.localStorage --save //bower list bower.json
-cd test && bower install sinon --save
+cd test && bower install sinon --save-dev
 npm install & bower install //package.json npm
 npm install moment --save //install and add to package.json
 grunt bower //inject Bower dependecy to RequireJS configuration in main.js

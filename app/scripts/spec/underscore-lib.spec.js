@@ -3,17 +3,20 @@
 *
 * grunt test
 * localhost:9001
-* http://chaijs.com/api/bdd/
+*
+* https://github.com/jashkenas/underscore/blob/master/test/functions.js
 */
 define(["jquery", "src/underscore-lib"], function ($, u) {
-  describe("Underscore", function () {
+  describe("_.", function () {
     // Setup
     var collection,
       divs = document.querySelectorAll("div"),
       div = document.querySelector("div"),
       $divs = $("div"),
-      objPerson = {name: "person1", age: 23};
+      objPerson = {name: "person1", age: 23},
+      listPerson = [{name: "mike", age: 12}, {name: "andy", age: 10}];
 
+    // https://github.com/jashkenas/underscore/blob/master/test/collections.js
     describe("@ Collection", function () {
       describe(".each (collection, callback, context)", function () {
         it("should work w array[1, 2, 3]", function () {
@@ -129,8 +132,80 @@ define(["jquery", "src/underscore-lib"], function ($, u) {
           expect(result).to.be.false;
         });
       });
-    });
 
+      describe(".filter (list, iterator, [context])", function () {
+        it("should return empty array if ", function(){
+          expect(u.filter()).to.eql([]);
+        });
+        it("should return correct array when passing [1,2,3,4] and criteria fn", function(){
+          // given
+          var arr = [1,2,3,4];
+          // when
+          var results = u.filter(arr, function (value, index) {
+            return value % 2 === 0;
+          });
+          // then
+          expect(results).to.eql([2,4]);
+        });
+
+        it("should return correct array when passing {a: 1, b: 2, c: 3} and criteria fn", function(){
+          // given
+          var obj = {a: 1, b: 2, c: 3};
+          // when
+          var results = u.filter(obj, function (value, index) {
+            return value % 2 === 0;
+          });
+          // then
+          expect(results).to.eql([2]);
+        });
+
+        it("should return correct array when passing [{a:1,b:2}, {a:2,b:1}] and criteria {a:1}", function(){
+          // given
+          var arr = [{a:1,b:2}, {a:2,b:1}];
+          // when
+          var results = u.filter(arr, {a:1});
+          // then
+          expect(results).to.eql([{a:1,b:2}]);
+        });
+      });
+
+      describe(".find(list, iteration)", function () {
+        it("should return first matched value when array is passed", function(){
+          var list = [1, 2, 3];
+          // when
+          var result = u.find(list,function (value) {
+            return value > 2;
+          });
+          // then
+          expect(result).to.equal(3);
+        });
+
+        it("should return first matched value when object is passed", function(){
+          // when
+          var result = u.find(listPerson, {name: "mike"});
+          // then
+          expect(result).to.eql({name: "mike", age: 12});
+        });
+      });
+
+      describe(".where (list, {prop})", function () {
+        var list = [{a: 1, b: 2}, {a: 2, b: 2}, {a: 1, b: 3}, {a: 1, b: 4}];
+        it("should return array when has {a:2}", function(){
+          // when
+          var results = u.where(list, {a: 2}); //found 1
+          // then
+          expect(results).to.eql([{a:2, b:2}]);
+        });
+
+        it("should return empty array when has {a:3}", function(){
+          // when
+          results = u.where(list, {a: 3}); //found 0
+          // then
+          expect(results).to.eql([]);
+        });
+      });
+
+    });
 
     describe("@ Array", function () {
       describe(".max (obj, [callback], [context])", function () {
@@ -324,8 +399,11 @@ define(["jquery", "src/underscore-lib"], function ($, u) {
         it("should throw error when obj is invalid", function(){
           expect(u.pluck.bind(undefined, 1, "age")).to.throw(TypeError);
         });
-        it("should return array correctlly when obj is valid", function(){
+        it("should return array correctly when object is passed", function(){
           expect(u.pluck([objPerson, objPerson], "age")).to.eql([23, 23]);
+        });
+        it("should return array correctly when array is passed", function(){
+          expect(u.pluck([["mike", 10], ["andy", 12]], 1)).to.eql([10, 12]);
         });
       });
 
@@ -342,19 +420,55 @@ define(["jquery", "src/underscore-lib"], function ($, u) {
             return initial + num;
           });
           // then
-          expect(result).to.be.equal(6);
+          expect(result).to.equal(6);
         });
       });
+
+      describe(".invert (obj)", function () {
+        it("should work for case where obj value is unique and string", function(){
+           expect(u.invert({Moe: "Moses", Larry: "Louis"})).to.eql({Moses: 'Moe', Louis: 'Larry'});
+        });
+        it("should work for case where obj value is not unique", function(){
+          // override by the latter one
+          expect(u.invert({Moe: "same", Larry: "same"})).to.eql({same:'Larry'});
+        });
+        it("should work for case where obj value is int", function(){
+          expect(u.invert({a:1, b:2})).to.eql({"1":"a", "2":"b"});
+        });
+        it("should work for case where obj is not set", function(){
+          expect(u.invert).to.throw(Error);
+        });
+      });
+
     });
     
     
     describe("@ Function", function () {
+      describe(".debounce (func, wait)", function () {
+        it("should work", sinon.test(function(){
+          //TODO: test more param
+          // given
+          var num = 0;
+          function counter() {
+            num++;
+          }
+          var debounced = u.debounce(counter, 200);
+          // when
+          debounced();
+          debounced();
+          debounced();
+          this.clock.tick(201);
+          // then
+          expect(num).to.equal(1);
+        }));
+      });
+
       describe(".delay(fn, time)", function () {
         it("should work and return timestamp", sinon.test(function(){
           // when
           this.spy = sinon.spy();
           var timestamp = u.delay(this.spy, 100);
-          this.clock.tick(100);
+          this.clock.tick(101);
           // then
           expect(this.spy).to.be.calledOnce;
           expect(timestamp).to.be.a("number");
@@ -661,20 +775,60 @@ define(["jquery", "src/underscore-lib"], function ($, u) {
       });
     });
 
-    describe("@ Regular Expression", function () {
-      it(".escapeRegExp (string)", function () {
-        // when
-        var string = "/\\d/";
-        string = "http://www.google.com";
-        // then
+    describe("@ Utility", function () {
+      describe(".random(min, max)", function () {
+        it("should throw error when no param passed", function(){
+          expect(u.random).to.throw(Error);
+        });
+        it("should get random number from [min,max] when 2 param passed", function(){
+          expect(u.random(10, 20)).to.be.at.least(10);
+        });
+        it("should get random number from [0,min] when 1 param passed", function(){
+          expect(u.random(10)).to.be.at.least(0);
+        });
+        it("should get random number from [min, max] when 2 param passed in reverse order", function(){
+          expect(u.random(30, 20)).to.be.at.least(20);
+        });
       });
-      it(".replaceText (text, match, replacement)", function () {
-        var match = "less", replacement = "more", text = u.replaceText("show less content", match, replacement);
-        expect(text).to.be.equal("show more content");
+      
+      describe(".escape(string)", function () {
+        it("should return '' when param is not set", function(){
+          expect(u.escape()).to.equal("");
+        });
+        it("should work with string has &<>'\"", function(){
+          expect(u.escape("<h1>title</h1>")).to.equal("&lt;h1&gt;title&lt;/h1&gt;");
+          expect(u.escape("curly & 'Moe'")).to.equal("curly &amp; &#x27;Moe&#x27;");
+        });
+      });
 
-        text = u.replaceText("show less content", "more", "less"); //no match
-        expect(text).to.be.equal("show less content");
+      describe(".unescape(string)", function () {
+        it("should return '' in case where string is not set", function(){
+          expect(u.unescape()).to.equal("");
+        });
+        it("should return unescaped string in general case", function(){
+          expect(u.unescape("&lt;h1&gt;title&lt;/h1&gt;")).to.equal("<h1>title</h1>");
+        });
+      });
+
+    });
+
+    describe("@ Regular Expression", function () {
+      describe(".escapeRegExp (string)", function () {
+        it("should work", function () {
+          var string = "/\\d/";
+          string = "http://www.google.com";
+        });
+      });
+
+      describe(".replaceText (text, match, replacement)", function () {
+        it("should work", function(){
+          var match = "less", replacement = "more", text = u.replaceText("show less content", match, replacement);
+          expect(text).to.equal("show more content");
+          text = u.replaceText("show less content", "more", "less"); //no match
+          expect(text).to.equal("show less content");
+        });
       });
     });
+
   });
 });

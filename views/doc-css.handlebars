@@ -1,0 +1,74 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row">
+  <div class="col-md-9" role="main">
+    <section>
+      <h1 class="page-header" id="css_styleguide">CSS Style Guide</h1>
+      <ul>
+        <li><a href="http://markdotto.com/2014/07/23/githubs-css/">Github CSS Architecture</a> <a
+          href="https://github.com/styleguide/css/">Github CSS Style Guide</a></li>
+      </ul>
+    </section>
+
+    <!--CSS Specificity & Box Model-->
+    <section>
+      <h1 class="page-header" id="css_spec">CSS Specificity & Box Model (MBPWH)</h1>
+      <ul>
+        <li><a href="http://www.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/">http://www.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/</a></li>
+        <li><a href="http://css-tricks.com/specifics-on-css-specificity/">http://css-tricks.com/specifics-on-css-specificity/</a></li>
+      </ul>
+      {{#htmlcode "pre"}}li            {}  /* specificity = 0,0,0,1 */
+        li:first-line {}  /* specificity = 0,0,1,1 */
+        li.red  {}        /* specificity = 0,0,1,1 */{{/htmlcode}}
+    </section>
+
+    <!--CSS Layout-->
+    <section>
+      <h1 class="page-header" id="css_layout">CSS Layout (PDF)</h1>
+
+      <!--TODO: PDF , MBPWH, css specification-->
+      {{> doc/css/css_layout_dynamic}}
+
+      <h2 id="zindex">z-index</h2>
+      <h4>- Read</h4>
+      <ul>
+        <li><a href="http://css-tricks.com/handling-z-index/">http://css-tricks.com/handling-z-index/</a></li>
+      </ul>
+    </section>
+
+    <!--CSS pseudo selector-->
+    <section>
+      <h1 class="page-header" id="css_pseudo">CSS pseudo selector</h1>
+      <ul>
+        <li><a href="http://www.smashingmagazine.com/2011/03/30/how-to-use-css3-pseudo-classes/">How to use CSS3 pseudo class</a></li>
+        <li>a:link|:visited|:hover|:active+:focus(focus of keyboard) (order in LoVe HAte)</li>
+        <li>:target - match #hash in url (IE9+)
+          e.g. www.yoursite.com/#home then the selector #home:target will match, easier way to do Tab/SlideShow widiget</li>
+        <li>:enabled|:disabled|:checked|:required|:optional|:ready-only for forms</li>
+        <li><a href="http://css-tricks.com/pseudo-class-selectors/">http://css-tricks.com/pseudo-class-selectors/</a>
+          :first-child|:last-child|:nth-child(2n)|:nth-of-type(N)|:first-of-type|:not|:empty|:only-child|::first-letter|::first-line
+        </li>
+        <li>:before|:after for decorating element</li>
+      </ul>
+    </section>
+
+    <!--CSS animation-->
+    <section>
+      <h1 class="page-header" id="css_animation">CSS Animation</h1>
+      <ul>
+        <li><a href="http://css-tricks.com/css-animation-tricks/">http://css-tricks.com/css-animation-tricks/</a></li>
+      </ul>
+    </section>
+
+    <!--CSS Text-->
+    <section>
+      <h1 class="page-header" id="css_text">CSS Text</h1>
+      <ul>
+        <li><a href="http://html5hub.com/ellipse-my-text/#i.iq20181bfke4sw">CSS text-overflow & ellipsis</a></li>
+      </ul>
+    </section>
+  </div>
+  {{> doc/sidebar}}
+</div>

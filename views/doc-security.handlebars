@@ -1,0 +1,63 @@
+<!--Security-->
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row" role="main">
+  <div class="col-md-9" role="main">
+    <section>
+      <h1 class="page-header" id="security">Security</h1>
+
+      <!--XSS & CSP-->
+      <h2 id="security_xss_csp">XSS, CSP, Encode</h2>
+      <ul>
+        <li><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">XSS(Cross-site scripting) Cheat Sheet</a></li>
+        <li>
+          <a href="http://code.tutsplus.com/articles/client-side-security-best-practices--net-35677">http://code.tutsplus.com/articles/client-side-security-best-practices--net-35677</a>
+          <blockquote>
+            <p>Content Security Policy (CSP) is a whitelisting mechanism that allows you to declare what behavior is allowed on a given page. This includes where assets are loaded from, where forms can send data, and most importantly, what JavaScript is allowed to execute on a page. It will also set report-uri. Supported in IE10+ & Modern browser</p>
+            <cite><a href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">CSP(Content Security Policy)</a></cite>
+          </blockquote>
+          <ul>
+            <li><a href="http://benvinegar.github.io/csp-talk-2013">How Disqus use CSP</a></li>
+            <li>
+              <a href="">How CSP was implemented at Twitter</a>
+              <blockquote>
+                <p>To fully invest CSP, require stop coding inline JavaScript and eventually inline styles. (By default, all inline script tags & eval() are blocked by CSP)
+                  <a href="http://nmatatal.blogspot.com/2013/01/removing-inline-javascript-for-csp.html">a way of removing inline js for CSP</a></p>
+              </blockquote>
+            </li>
+            <li><a href="https://github.com/blog/1477-content-security-policy">Github's CSP practice</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://tech.blog.box.com/2013/08/securing-jquery-against-unintended-xss/">Secure jQuery .html() from XSS</a>
+          <a href="http://tech.blog.box.com/2013/07/secure-coding-practices/">http://tech.blog.box.com/2013/07/secure-coding-practices/</a>
+          <blockquote>
+            <p>All user input/variable need escaple before use. use $.text() will escape the string. but $.fn with XSS hole: .html,.before,.after,.append,.prepend; <b>Solution:</b> override and add a filter parser before sending to original $.fn </p>
+          </blockquote>
+        </li>
+      </ul>
+      <iframe width="100%" height="350" src="http://jsbin.com/mucug/latest/edit?js,console" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+      <!--iframe-->
+      <h2 id="security_iframe">Iframe w sandbox</h2>
+      <ul>
+        <li><b>Good:</b> iframe provide a way to access resource cross domain, and a level of security for 3rd party content. e.g. twitter widget/FB Like/Ads</li>
+        <li><b>Bad:</b> iframe load is expansive and will block window.onload, parent page and iframe share the same connection pool</li>
+        <li>
+          <a href="http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/">iframe with sandbox attribute</a>
+          <blockquote>
+            {{#htmlcode "pre"}}
+              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                      src="https://platform.twitter.com/widgets/tweet_button.html"></iframe>
+            {{/htmlcode}}
+          </blockquote>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  {{> doc/sidebar}}
+</div>

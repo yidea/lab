@@ -1,0 +1,88 @@
+ul {
+  padding-left: 25px;
+}
+h2 {
+  margin-top: 1em;
+  padding-left: 0.5em;
+  border-left: 4px solid #428bca;
+  font-size: 16px;
+}
+h3,
+h4 {
+  color: #666;
+  font-size: 14px;
+}
+.text-cross {
+  text-decoration: line-through;
+}
+.page-header {
+  margin: 1.5em 0 0;
+  font-size: 19px;
+  font-weight: 800;
+}
+ul h3,
+ol h3,
+ul p,
+ol p {
+  margin: 0;
+  font-size: 13px;
+}
+.affix-top {
+  position: fixed;
+}
+.affix > .nav,
+.affix-top > .nav {
+  margin-top: 20px;
+  font-size: 13px;
+}
+.affix > .nav >.active > a,
+.affix-top > .nav >.active > a {
+  border-left: 2px solid #222;
+  color: #222;
+  font-weight: bold;
+}
+.affix > .nav >.active .active a,
+.affix-top > .nav >.active .active a {
+  color: #222;
+}
+.affix > .nav a,
+.affix-top > .nav a {
+  padding: 0 0 2px 5px;
+  color: #999;
+  font-weight: 500;
+}
+.affix > .nav .nav a,
+.affix-top > .nav .nav a {
+  padding: 4px 20px;
+  font-size: 12px;
+  font-weight: 400;
+}
+blockquote {
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+blockquote p {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+}
+blockquote cite a {
+  font-size: 13px;
+}
+code {
+  font-size: 13px;
+}
+pre {
+  padding: 0;
+  margin: 0;
+  background: #f9f2f4;
+}
+pre code {
+  color: #c7254e;
+}
+.js .progress {
+  display: inline-block;
+  margin: 0;
+  width: 180px;
+  vertical-align: top;
+}

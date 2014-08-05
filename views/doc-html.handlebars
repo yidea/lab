@@ -1,0 +1,69 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row" role="main">
+  <div class="col-md-9" role="main">
+    <!--HTML style guide -->
+    <section>
+      <h1 class="page-header" id="html_style_guide">HTML style guide</h1>
+      <a href="http://isobar-idev.github.io/code-standards/">http://isobar-idev.github.io/code-standards/</a>
+    </section>
+    
+    <!--Semantic HTML-->
+    <section>
+      <h1 class="page-header" id="semantic_html">Semantic HTML</h1>
+
+      <h2 id="a_button">a href="#" vs. button</h2>
+      <ul>
+        <li>
+          <blockquote>
+            <p>
+              Use {{#htmlcode}}<a href="/url">link</a>{{/htmlcode}} when need href ((not #, "")) to direct user to somewhere
+              Use button when no href is need, and most time with form
+            </p>
+          </blockquote>
+        </li>
+        <li><a href="http://css-tricks.com/use-button-element/">http://css-tricks.com/use-button-element/</a></li>
+        <li><a href="http://formidablelabs.com/blog/2014/05/08/anchors-buttons-and-accessibility/">http://formidablelabs.com/blog/2014/05/08/anchors-buttons-and-accessibility/</a></li>
+      </ul>
+
+      <h2 id="input">Input</h2>
+      <ul>
+        <li>
+          <h3>input type=number</h3>
+        </li>
+      </ul>
+    </section>
+    
+    <!--ARIA-->
+    <section>
+      <h1 class="page-header" id="aria">ARIA</h1>
+      <p>Based on <a href="http://www.w3.org/TR/wai-aria/roles">roles</a>, you can find it's <a
+        href="http://www.w3.org/TR/wai-aria/states_and_properties">states and properties</a></p>
+      <h3>-Read</h3>
+      <ul>
+        <li><a href="http://a11yproject.com/posts/getting-started-aria/">http://a11yproject.com/posts/getting-started-aria/</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA">https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA</a></li>
+      </ul>
+      <h4>Tab w ARIA</h4>
+      {{#htmlcode "pre"}}
+        <ol role="tablist">
+          <li role="tab"><a href="#tab1">tab1</a></li>
+        </ol>
+        <div>
+          <div id="tab1" role="tabpanel">tab1 panel content</div>
+        </div>
+      {{/htmlcode}}
+    </section>
+
+    <!--Canvas-->
+    <section>
+      <h1 class="page-header" id="canvas">Canvas</h1>
+      <h3>- Play</h3>
+      <iframe width="100%" height="350" src="http://jsbin.com/paqub/27/embed?js,output" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </section>
+  </div>
+
+  {{> doc/sidebar}}
+</div>

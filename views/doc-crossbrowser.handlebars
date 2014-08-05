@@ -1,0 +1,89 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row" role="main">
+  <div class="col-md-9" role="main">
+    <!--IE 8,9-->
+    <section>
+      <h1 class="page-header" id="ie">IE</h1>
+      <h2 id="css-ie-8">IE 8</h2>
+
+      <!--CSS-->
+      <h3>CSS</h3>
+      <ul>
+        <li>IE8,9 have <a href="http://blogs.msdn.com/b/ieinternals/archive/2011/05/14/internet-explorer-stylesheet-rule-selector-import-sheet-limit-maximum.aspx">4095 selector per css file limit issue</a>, neet spit the file for IE8.9</li>
+        <li>IE8 CSS hacks: *color: red; body:last-child{} for IE9+ browser, {{#htmlcode}}<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->{{/htmlcode}}</li>
+        <li>IE8 doesn't support some Pseudo selector:last-child, :nth-child, :first-of-type, :target, :not, :checked,
+          :invalid, :required .etc.
+          <ul>
+            <li><a href="http://kimblim.dk/css-tests/selectors/">CSS selector browser support table</a></li>
+            <li><a href="http://www.smashingmagazine.com/2009/10/14/css-differences-in-internet-explorer-6-7-and-8">http://www.smashingmagazine.com/2009/10/14/css-differences-in-internet-explorer-6-7-and-8</a>
+            </li>
+            <li><a href="http://www.impressivewebs.com/browser-support-css3-selectors/">http://www.impressivewebs.com/browser-support-css3-selectors/</a>
+            </li>
+          </ul>
+        </li>
+        <li>IE8 doesn't support CSS3 features:
+          <ul>
+            <li>
+              Media Query, polyfill with {{#htmlcode}}<!--[if lt IE 9]><script src="respond.min.js"></script><![endif]-->{{/htmlcode}}
+            </li>
+            <li>Border-radius, transition, animation</li>
+          </ul>
+        </li>
+        <li>IE8 doesn't support opacity, need fallback with -ms-filter:
+          "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)" or filter: alpha(opacity=50);
+        </li>
+        <li>
+          <a href="http://css-tricks.com/browser-support-pseudo-elements/">IE8 partially support :before/:after</a>
+          <blockquote>
+            <p><a href="http://www.guyroutledge.co.uk/blog/ie8-and-pseudo-element-z-index-issues/">z-index is not
+              respected</a>, must use a doctype, must declare a :hover state if you use :hover:after/:hover:before</p>
+          </blockquote>
+        </li>
+        <li>IE8 ignore z-index:-1</li>
+      </ul>
+
+      <!--JS-->
+      <h3>JS</h3>
+      <ul>
+        <li>IE8 NOT support following <a href="http://kangax.github.io/compat-table/es5/">ECMAScript5</a>, need shim. String.trim, Array.isArray/indexOf/lastIndexOf/forEach/map/filter/some/every/reduce, Function.bind, Object.create/defineProperty/keys/freeze/seal, Date.now, JSON</li>
+        <li>
+          <a href="http://www.quirksmode.org/dom/events/keys.html">IE8 doesn't support window.keyup, keydown, listento
+            it on document</a>
+        </li>
+        <li>IE8 reserves class keyword, don't use obj = {class: "test", if: 1} use "class"</li>
+        <li>IE8 doesn't expose console and not support console.log() if devtool is closed</li>
+        <li>
+          <a href="http://stackoverflow.com/questions/12837869/ie9-constantly-using-ie7-standards-document-mode-no-matter-what-i-try">IE8+
+            using IE7 document mode to render for localhost</a>
+          <blockquote>
+            <p>
+              {{#htmlcode}}
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">{{/htmlcode}} need to be within the first <span
+              class="text-cross">512</span> 1024 bytes (<a
+              href="http://www.w3.org/TR/2012/CR-html5-20121217/document-metadata.html#charset">W3C HTML5</a>) in the
+              page, have it right after the {{#htmlcode}}
+            <head>{{/htmlcode}}. In IE>Tools>Compatibility View Settings> unselect “display intranet in compatibility
+              view”.
+            </p>
+          </blockquote>
+        </li>
+      </ul>
+    </section>
+
+    <!--Firefox-->
+    <section>
+      <h1 class="page-header" id="firefox">Firefox</h1>
+      <ul>
+        <li><a href="http://wisercoder.com/firefox-displaytable-cell-and-absolute-positioning/">CSS: element w
+          display:table-cell don't take position: relative property bug</a></li>
+      </ul>
+    </section>
+
+  </div>
+
+  {{> doc/sidebar}}
+</div>

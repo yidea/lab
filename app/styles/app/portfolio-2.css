@@ -1,0 +1,78 @@
+body {
+  margin-left: 200px;
+  background: #eee;
+}
+.container {
+  padding: 0;
+  margin: 0;
+}
+.sidebar {
+  width: 200px;
+  background: #252733;
+}
+.sidebar .navbar-header {
+  float: none;
+  height: 100px;
+  background: #ddd;
+}
+.sidebar .navbar-brand {
+  float: none;
+}
+.sidebar .navbar-collapse {
+  padding: 0;
+}
+.sidebar .navbar-collapse .active a {
+  background-color: rgba(0,0,0,0.2);
+  color: #fff;
+}
+.sidebar .navbar-collapse .active a:after {
+  margin-right: -20px;
+}
+.sidebar .navbar-collapse a {
+  padding: 0 20px;
+  background-color: transparent;
+  color: #999;
+  line-height: 60px;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+}
+.sidebar .navbar-collapse a:hover {
+  background-color: rgba(0,0,0,0.2);
+  color: #fff;
+}
+.sidebar .navbar-collapse a:after {
+  content: "";
+  float: right;
+  margin-top: 20px;
+  margin-right: -35px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #eee;
+  transition: margin-right 0.3s ease-in;
+}
+.page .page-header {
+  margin: 0;
+  padding: 0 0 0 20px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -1px 0 0 #fff, 0 1px 2px 0 rgba(0,0,0,0.1);
+}
+.page h1 {
+  margin: 0;
+  height: 100px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 100px;
+}
+.page .affix {
+  z-index: 1;
+  top: 0;
+  left: 200px;
+}
+.page .container {
+  margin-top: 100px;
+  padding: 20px;
+  min-height: 700px;
+}

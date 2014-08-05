@@ -1,0 +1,155 @@
+{{#section "css"}}
+  <link rel="stylesheet" href="/styles/app/doc.css">
+{{/section}}
+
+<div class="row">
+  <!--main-->
+  <div class="col-md-9" role="main">
+    <!--Cracking CI-->
+    <section>
+      <h1 class="page-header" id="cci">Cracking CI</h1>
+      <h3>Read</h3>
+      <ul>
+        <li><a href="https://github.com/gaylemcd/ctci/tree/master/javascript/lib/data-structures">https://github.com/gaylemcd/ctci/tree/master/javascript/lib/data-structures</a></li>
+        <li><a href="http://www.geeksforgeeks.org/">http://www.geeksforgeeks.org/</a></li>
+      </ul>
+      <h2 id="cci_fivesteps">Five steps to technical question</h2>
+      <ol>
+        <li>
+          <h3>Ask question to resolve ambiguity</h3>
+          <p>e.g. Design an alg to sort a list. what data type(int,float,string), how many 1 million? general/corner case</p>
+        </li>
+        <li>
+          <h3>Design Alg</h3>
+          <p>Consider space and time complexity</p>
+        </li>
+        <li>
+          <h3>Write pseudocode first</h3>
+          <p>pseudocode for outline your thoughts</p>
+        </li>
+        <li>
+          <h3>Real code</h3>
+          <p>on whiteboard, start from upper left</p>
+        </li>
+        <li>
+          <h3>Test, code fix</h3>
+          <p>
+            General case; Corner case: 0|null|negative|max|min
+          </p>
+        </li>
+      </ol>
+      <h2 id="cci_approach">Approach</h2>
+      <ol>
+        <li>
+          <h3>Examplify</h3>
+          <p>take n= 1,2,3 as example</p>
+        </li>
+        <li>
+          <h3>Pattern Matching</h3>
+        </li>
+        <li>
+          <h3>Simplify and Generalize</h3>
+        </li>
+        <li>
+          <h3>Base case and Recursion</h3>
+          <p>base case 0, 1; general case f(n) = f(n-1) + f(n-2). e.g. string permutation</p>
+        </li>
+        <li>
+          <h3>Data structure brainstorm</h3>
+          <p>Choose the right data structure can solve half of the issue: Array, Hashtable, Linked list, Binary tree, Heap</p>
+          <ul>
+            <li>Linked list: bad at access, sort number</li>
+            <li>Array</li>
+            <li>Hashtable</li>
+            <li>Binary tree: good at ordering, perfectly balanced</li>
+            <li>Heap: good at basic ordering and keep track of max/min</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!--String&Array-->
+    <section>
+      <h1 class="page-header" id="string_array">String&Array</h1>
+      <ul>
+        <li>whenever being asked string related question, ask about how it's encoded(ascii, utf-8)</li>
+        <li>string sort, find need using array, hashtable for counting</li>
+      </ul>
+      <iframe width="100%" height="350" src="http://jsbin.com/dilen/latest/edit?js,output" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+      <ul>
+        <li>Unique string: <a href="http://jsbin.com/vipib/latest/edit">http://jsbin.com/vipib/latest/edit</a></li>
+        <li>Reverse string: <a href="http://jsbin.com/foluza/3/edit">http://jsbin.com/foluza/3/edit</a></li>
+      </ul>
+
+    </section>
+
+    <!--Dictionary-->
+    <section>
+      <h1 class="page-header" id="dictionary">Dictionary</h1>
+      <a href="http://jsbin.com/siqor/4/edit">http://jsbin.com/siqor/4/edit</a>
+
+    </section>
+
+    <!--Hashtable-->
+    <section>
+      <h1 class="page-header" id="hashtable">Hashtable</h1>
+      <a href="http://jsbin.com/feqir/latest/edit">http://jsbin.com/feqir/latest/edit</a>
+    </section>
+
+    <!--alg-->
+    <section>
+      <h1 class="page-header" id="alg">Alg</h1>
+      <!--String-->
+      <h2>String</h2>
+      <ul>
+        <li><a href="http://jsbin.com/potiy/latest/edit">Top 10 words desc from sentence</a></li>
+      </ul>
+
+      <!--Number-->
+      <h2>Number</h2>
+      <ul>
+        <li>
+          Print first 10 prime number
+        </li>
+        <li>Fibonacci, Factorial</li>
+      </ul>
+
+      <!--Sorting-->
+      <h2>Sorting</h2>
+      <ul>
+        <li>
+          merge sort
+          http://www.stoimen.com/blog/category/data-structures-2/
+          http://www.stoimen.com/blog/2010/07/02/friday-algorithms-javascript-merge-sort/
+        </li>
+        <li>
+          bubble sort
+          http://www.nczonline.net/blog/2009/05/26/computer-science-in-javascript-bubble-sort/
+          http://www.stoimen.com/blog/2010/07/09/friday-algorithms-javascript-bubble-sort/
+        </li>
+        <li>
+          Insertion sort
+          http://www.stoimen.com/blog/2012/02/13/computer-algorithms-insertion-sort/
+        </li>
+      </ul>
+    </section>
+
+    <!--Design Pattern-->
+    http://www.slideshare.net/rmsguhan/javascript-design-patterns
+    <section>
+      <h1 class="page-header" id="design_pattern">Design Pattern</h1>
+      <h2>Singleton</h2>
+      <h2>Module/Prototype Pattern</h2>
+
+      <h2>Factory Pattern</h2>
+      XHR object for browser
+
+      <h2>Decorator Pattern</h2>
+
+      <h2>Observer/PubSub Pattern</h2>
+      addEventListener/detach
+    </section>
+  </div>
+
+  {{> doc/sidebar}}
+</div>

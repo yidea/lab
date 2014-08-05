@@ -8,21 +8,21 @@
 </head>
 <body>
   <div id="blanket-main"></div>
-  <div id="mocha"></div>
+  <div id="mocha" style="margin:0;"></div>
   <div id="fixtures" style="display: none;"></div>
   <div id="fixtures-visible" style="position: absolute; bottom: 0; left: -999em"></div>
 
   <!-- Unit Test lib: Mocha + Chai + Sinon-->
-  <script src="bower_components/mocha/mocha.js"></script>
-  <script src="bower_components/chai/chai.js"></script>
-  <script src="bower_components/chai-jq/chai-jq.js"></script>
-  <script src="bower_components/sinon/pkg/sinon.js"></script>
-  <script src="bower_components/sinon-chai/lib/sinon-chai.js"></script>
+  <script src="/bower_components/mocha/mocha.js"></script>
+  <script src="/bower_components/chai/chai.js"></script>
+  <script src="/bower_components/chai-jq/chai-jq.js"></script>
+  <script src="/bower_components/sinon/lib/sinon.js"></script>
+  <script src="/bower_components/sinon-chai/lib/sinon-chai.js"></script>
 
   <!-- Source & Spec files -->
-  <script data-main="scripts/main-test" src="bower_components/requirejs/require.js"></script>
+  <script data-main="scripts/main-test" src="/bower_components/requirejs/require.js"></script>
 
   <!-- Code Coverage lib-->
-  <script src="bower_components/blanket/dist/qunit/blanket.min.js" data-cover-adapter="bower_components/blanket/src/adapters/mocha-blanket.js" data-cover-only="scripts/src"></script>
+  <!--<script src="/bower_components/blanket/dist/qunit/blanket.min.js" data-cover-adapter="/bower_components/blanket/src/adapters/mocha-blanket.js" data-cover-only="scripts/src"></script>-->
 </body>
 </html>

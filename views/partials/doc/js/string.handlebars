@@ -1,0 +1,39 @@
+<h2 id="string">String</h2>
+
+<iframe width="100%" height="350" data-src="http://jsbin.com/bubav/latest/embed?js" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h3>Read</h3>
+<ul>
+  <li><a href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a></li>
+  <li><a href="http://www.2ality.com/2013/09/javascript-unicode.html">http://www.2ality.com/2013/09/javascript-unicode.html</a></li>
+</ul>
+<p>
+  JS string are stored as UTF-16-bit unsigned int internally (2 bytes for most character), whenever being asked string related question, ask about how string is encoded first(ascii, utf-8)
+</p>
+<ul>
+  <li>
+    <h3>Encoding character: ASCII vs. UTF-8</h3>
+    <ul>
+      <li><b>ASCII</b> (American Standard Code for Information Interchange) store character using 1 byte(8 bit, ASCII 0-127 character only use 7bits, but stored as 8bits leaving 1st bit as 0), thus has a character set of 256 (a standard ASCII character set from 0 to 127, <32 are unprintable, and an extended ASCII which ranges 128 up to 255 Latin.)</li>
+      <li><b>UTF-8</b> most common encoding for HTML, dynamically sized from 1-6 bytes. code point from 0-127 is stored in a 1 byte(ASCII0-127 is subset of UTF-8). Only code points 128+ are stored using 2, 3 and up to 4 bytes (31 bits max). UTF-8 is for creating a character set for all every writing system, for internationalization, since ASCII 256 is not enough for Greek, Chinese. Hello -> U+0048 U+0065 U+006C U+006C U+006F will be stored as  48 65 6C 6C 6F; The Unicode code point for "€" is U+20AC, it will take 3 bytes to encode, since it is between U+0800 and U+FFFF.
+        {{#htmlcode}}<meta charset="utf-8">{{/htmlcode}} the meta tag really has to be the very first thing in the head(within first 1024bytes) because as soon as the web browser sees this tag it's going to stop parsing the page and start over after reinterpreting the whole page using the encoding you specified
+        <br/>
+        <a href="http://en.wikipedia.org/wiki/UTF-8"><b>UTF-8 Dynamic store bytes sequence table:</b></a>
+        <ul>
+          <li>1 byte: 2^7  (U+0000 - U+007F)</li>
+          <li>2 byte: 2^11 (U+0080 - U+07FF)</li>
+          <li>3 byte: 2^16 (U+0800 - U+FFFF)</li>
+          <li>4 byte: 2^21 (U+10000 - U+1FFFFF)</li>
+          <li>5 byte: 2^26 (U+200000 - U+3FFFFFF)</li>
+          <li>6 byte: 2^31 (U+4000000 - U+7FFFFFFF)</li>
+        </ul>
+      </li>
+      <li>
+        <b>UTF-16</b> in UTF-8 a character may occupy a minimum of 8 bits, while in UTF-16 character length starts with 16 bits.  UTF-16 uses 2 bytes for all characters in the basic multilingual plane (BMP) which contains most characters in common use. Pros: speeds indexing Cons: null bytes in US-ASCII strings, which means no null-terminated strings and a lot of wasted memory.</li>
+    </ul>
+  </li>
+  <li>
+    <h3>Calculate bytes of html/textarea value</h3>
+    <p>Html is encoded using UTF-8</p>
+  </li>
+</ul>

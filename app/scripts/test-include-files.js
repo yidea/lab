@@ -5,8 +5,10 @@
 * TODO: auto generated this on watch
 * */
 define([
-  "src/util",
+  "src/underscore.powerpack",
   "src/underscore-lib",
-  "spec/util.spec",
-  "spec/underscore-lib.spec"
+  "src/util",
+  "spec/underscore.powerpack.spec",
+  "spec/underscore-lib.spec",
+  "spec/util.spec"
 ]);

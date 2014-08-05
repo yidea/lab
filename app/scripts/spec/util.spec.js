@@ -1,5 +1,5 @@
 define(["jquery", "underscore", "src/util"], function ($, _, u) {
-  describe("Util", function () {
+  describe("$.Util", function () {
     describe("@string", function () {
 
       beforeEach(function () {
@@ -65,7 +65,6 @@ define(["jquery", "underscore", "src/util"], function ($, _, u) {
           expect(u.string.getQueryParamByName("query", "/search/?query=ipad%203")).to.equal("ipad 3");
           expect(u.string.getQueryParamByName("query2", "?query=ipad%203")).to.equal("");
         });
-
       });
 
     });

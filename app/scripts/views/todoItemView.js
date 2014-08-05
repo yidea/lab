@@ -1,11 +1,11 @@
 define(["jquery", "underscore", "backbone", "handlebars", "text!templates/todoItem.hbs", "hbs.helper"
-], function ($, _, Backbone, Handlebars, tplTodo) {
+], function ($, _, Backbone, Handlebars, tplTodoItem) {
   "use strict";
 
   var TodoItemView = Backbone.View.extend({
     tagName: "li",
 
-    template: Handlebars.compile(tplTodo),
+    template: Handlebars.compile(tplTodoItem),
 
     // click toggle to toggle completed
     // click on input to enter "edit" mode
@@ -18,10 +18,12 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/todoIt
     },
 
     initialize: function () {
-      // VM Listner
+      // VM Listener
       this.listenTo(this.model, "change", this.render);
       this.listenTo(this.model, "destroy", this.remove);
 
+      // since VM 1-1 relation, set a direct ref so model can remove view by ref
+      this.model.view = this;
     },
     
     render: function () {
@@ -47,7 +49,7 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/todoIt
       this.$(".edit").trigger("focus");
     },
 
-    // end Eidt mode and save changes to model if has valid input
+    // end Edt mode and save changes to model if has valid input
     _onBlurEndEdit: function (ev) {
       var $target = $(ev.currentTarget),
         text = $.trim($target.val());

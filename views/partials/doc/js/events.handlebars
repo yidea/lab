@@ -1,0 +1,69 @@
+<section>
+  <h1 class="page-header" id="events">Events</h1>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Reference/Events">MDN Events list</a>
+  <!--window, document-->
+  <h2 id="events_window">Window, document events</h2>
+  <ul>
+    <li>
+      <h3>$(document).ready vs. window.onload</h3>
+      <p>$(document).ready will run as soon as html document is loaded/ready, window.onload will run after that when resources (element has src="something", e.g. img/iframe/async script) also loaded </p>
+      <blockquote>
+        {{#htmlcode "pre"}}
+          // how $(document).ready is implemented
+          document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false ); //modern
+          document.attachEvent("onreadystatechange", DOMContentLoaded); //IE
+        {{/htmlcode}}
+      </blockquote>
+    </li>
+  </ul>
+
+  <!--Keyboard-->
+  <h2 id="events_keyboard">Keyboard events</h2>
+  <ul>
+    <li>
+      <h3>keyup, keypress, keydown, input, change, focus, blur (use it on document instead of window)</h3>
+      <iframe width="100%" height="350" data-src="http://jsbin.com/karec/latest/embed?js" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </li>
+  </ul>
+
+  <!--Mouse-->
+  <h2 id="events_mouse">Mouse events</h2>
+  <ul>
+    <li>
+      <h3>mouse: mousemove, mousedown, mouseup, mouseover/mouseout, mouseenter/mouseleave</h3>
+      <ul>
+        <li><b>mouseleave vs. mouseover</b>
+          <blockquote>
+            <p>
+              mouseenter/mouseleave (prefereed, event don't bubble up, only fire once no matter the listener has child/ or not)- hover effect. mouseover/mouseout (event will bubble up, same as mouseenter/leave if listener element has no child element; if has child element will fire n times based on the n inner nested element)
+            </p>
+            <cite><a href="http://www.mkyong.com/jquery/different-between-mouseover-and-mouseenter-in-jquery/">different-between-mouseover-and-mouseenter-in-jquery</a></cite>
+          </blockquote>
+        </li>
+        <li><b>event object:</b>
+          ev.type: event name;
+          ev.target, ev.relatedTarget(only mouseover/mouseout)
+          ev.clientX,ev.clientY //mouse coordinate relative to window
+          ev.pageX,ev.pageY //mouse coordinate relative to document (IE9+)
+          fallback ev.pageY = ev.clientY + document.body.scrollTop;
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3>click: click, dblclick, contextmenu</h3>
+    </li>
+    <li>
+      <h3>Drag & Drop</h3>
+      HTML5 introduced dragstart,dragover,drop, but can fallback with mousedown,mousemove,mouseup combo.
+      <a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">Native HTML5 Drag and Drop</a>
+      <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/">Drag&Drop files in JS using HTML5 File API</a>
+      ALG: Track mousedown on the element. When triggers, start the drag’n’drop, assign handlers.
+      Drag by tracking mousemove. Make the element absolute positioned and move it’s left/top with the mouse.
+      By assigning them to event.pageX/pageY you match the top-left corner with the pointer. To put the element under the pointer, a shift is needed.
+      Finish with mouseup on the element
+    </li>
+  </ul>
+
+  <!--Touch-->
+
+</section>

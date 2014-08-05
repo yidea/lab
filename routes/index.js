@@ -1,16 +1,10 @@
-// Main controller
 var _ = require("underscore");
-//  mongoose = require("../mongoose"),
-//  PresoSchema = mongoose.presoSchema;
 
 exports.index = function (req, res) {
-  res.render("home", {
-    title: "test"
+  res.render("portfolio", {
+    layout: "layout-portfolio",
+    title: "portfolio"
   });
-};
-
-exports.todo = function (req, res) {
-  res.render("todo");
 };
 
 exports.getItem = function (req, res) {
@@ -22,10 +16,13 @@ exports.getItem = function (req, res) {
   }
 };
 
-exports.getJSON = function (req, res) {
-  res.json({
-    uid: "1",
-    title: "test",
-    name: "name"
+exports.todo = function (req, res) {
+  res.render("todo");
+};
+
+exports.tool = function (req, res) {
+  res.render("tool", {
+    layout: "layout-doc",
+    title: "Tool"
   });
 };

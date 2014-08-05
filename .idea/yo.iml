@@ -4,20 +4,15 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.sass-cache" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="chai-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="backbone-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="underscore-DefinitelyTyped" level="application" />
-    <orderEntry type="library" name="chai-jquery-DefinitelyTyped" level="application" />
-    <orderEntry type="library" name="sinon-chai-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="jQuery-2.0.0" level="application" />
     <orderEntry type="library" name="requirejs-DefinitelyTyped" level="application" />
-    <orderEntry type="library" name="handlebars-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="sass-stdlib" level="application" />
-    <orderEntry type="library" name="node-DefinitelyTyped" level="application" />
-    <orderEntry type="library" name="Node.js v0.10.25 Core Modules" level="application" />
     <orderEntry type="library" name="yo node_modules" level="project" />
   </component>
 </module>
