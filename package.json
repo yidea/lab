@@ -20,7 +20,8 @@
     "request": "~2.34.0",
     "superagent": "^0.18.0",
     "underscore": "~1.6.0",
-    "yql-weather-location": "0.0.2"
+    "yql-weather-location": "0.0.2",
+    "ghost": "0.5.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
