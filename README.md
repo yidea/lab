@@ -1,5 +1,14 @@
 # README
 
+## Install & Run
+
+```
+git clone git@github.com:yidea/lab.git
+npm install & bower i --allow-root
+nodemon app.js //dev   
+forever start app.js //prod
+```
+
 ## TODO
 
 - log server console.log
@@ -15,16 +24,6 @@ add pic screenshot of the page and
 - Jekins CI/Logs 
 - NPM: Async, Forever, MomentJS, node-schedule
 - Auto deploy to digitalOcean, cron run forever on reboot
-
-## Deployment
-
-- npm install; bower i --allow-root
-- forever start web.js
- 
-## Git
-
-- git remote -v 
-- git push heroku master
 
 ## Project Run
 
