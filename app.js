@@ -29,6 +29,7 @@ app.configure(function () {
   app.use(app.router);
   app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
   app.use(express.static(path.join(__dirname, "app")));
+  app.use(express.static(path.join(__dirname, "public")));
   app.use(express.static(path.join(__dirname, "node_modules")));
 });
 

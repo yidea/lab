@@ -18,7 +18,7 @@ define([
     el: "body",
 
     events: {
-      "click .header .nav a": "_onClickScroll",
+      "click .header .nav .js-nav-link": "_onClickScroll",
       "click .uc-container .uc-initial-content": "_onClickUnfold",
       "click .uc-container .close": "_onClickFold"
     },
@@ -37,7 +37,7 @@ define([
       this.$("#typing").typed({
         strings: ["a front end developer", "an ex-UX designer", "Yi Cao"],
         typeSpeed: 30,
-        callback: function (ev) { 
+        callback: function (ev) {
           self.$("#typing-after").addClass("in");
           self.$("#home").addClass("typed");
           _.delay(function () {
